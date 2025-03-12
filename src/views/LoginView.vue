@@ -1,18 +1,32 @@
 <script setup>
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue';
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
+import http from '@/services/http';
+import useAuthStore from '@/services/authStore';
+import {useRouter} from 'vue-router';
 
-const usuario = ref('');
-const password = ref('');
+const router = useRouter();
+const autStore = useAuthStore();
+const user = reactive({
+    username: null,
+    password: null
+});
 
-const handleLogin = () => {
-    // Lógica de login aqui
-    console.log('Usuário:', usuario.value);
-    console.log('Password:', password.value);
+const handleLogin = async () => {
+    try {
+        const response = await http.post('/auth/login', user);
+        
+        autStore.setToken(response.data.token);
+
+        // router.push({ name: 'dashboard' });
+    } catch (error) {
+        console.error(error?.response?.data);
+    }
 };
+
 </script>
 
 <template>
@@ -23,12 +37,12 @@ const handleLogin = () => {
             <form @submit.prevent="handleLogin" class="space-y-6">
                 <div>
                     <label for="login" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Usuário</label>
-                    <InputText id="usuario" v-model="usuario" class="w-full mt-1" required />
+                    <InputText id="usuario" v-model="user.username" class="w-full mt-1" required />
                 </div>
                 <div>
                     <label for="password"
                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                    <Password id="password" v-model="password" toggleMask class="w-full mt-1" required />
+                    <Password id="password" v-model="user.password" toggleMask class="w-full mt-1" required />
                 </div>
                 <div>
                     <Button label="Login" type="submit" class="w-full" />
