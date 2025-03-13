@@ -1,6 +1,6 @@
 <script setup>
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
@@ -15,15 +15,18 @@ const user = reactive({
     password: null
 });
 
+const mensagemError = ref("");
 const handleLogin = async () => {
+    mensagemError.value = "";
     try {
         const response = await http.post('/auth/login', user);
         
         autStore.setToken(response.data.token);
+        router.push({ name: 'dashboard' });
 
-        // router.push({ name: 'dashboard' });
     } catch (error) {
-        console.error(error?.response?.data);
+        mensagemError.value = "Usuário ou senha inválidos";
+        console.error(error?.response?.data);        
     }
 };
 
@@ -44,6 +47,11 @@ const handleLogin = async () => {
                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
                     <Password id="password" v-model="user.password" toggleMask class="w-full mt-1" required />
                 </div>
+
+                <p v-if="mensagemError" class="text-red-500 text-sm">
+                    {{ mensagemError }}
+                </p>
+
                 <div>
                     <Button label="Login" type="submit" class="w-full" />
                 </div>
