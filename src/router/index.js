@@ -18,7 +18,14 @@ const router = createRouter({
             path: "/dashboard",
             name: "dashboard",
             component: () => import("../views/DashboardView.vue"),
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: true },
+            // children: [
+            //     {
+            //         path: "",
+            //         name: "",
+            //         component: () => import("")
+            //     },
+            // ]
         },
     ]
 });
@@ -27,11 +34,11 @@ router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
 
     if (to.meta.requiresAuth && !authStore.token) {
-      next({ name: "login" });
+        next({ name: "login" });
     } else {
-      next();
+        next();
     }
-  });
+});
 
 
 export default router;

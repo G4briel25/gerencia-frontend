@@ -10,7 +10,6 @@ import Aura from '@primeuix/themes/aura';
 
 
 import App from './App.vue'
-import AppState from "./plugins/appState.js";
 import router from './router/index.js'
 
 
@@ -20,14 +19,10 @@ app.use(createPinia())
 app.use(router);
 app.use(PrimeVue, {
     theme: {
-        preset: Aura,
-        options: {
-            darkModeSelector: '.app-dark'
-        }
+        preset: Aura
     }
 });
 
-app.use(AppState);
 app.use(ConfirmationService);
 app.use(ToastService);
 

@@ -1,4 +1,6 @@
 <script setup>
+import NavBar from '@/components/NavBar.vue';
+import TelasDeMenus from '@/layout/TelasDeMenus.vue';
 import http from '@/services/http';
 import { ref, onMounted } from 'vue';
 
@@ -21,8 +23,9 @@ onMounted(async () => {
 
 <template>
     <div>
-        <p class="text-2xl">Dashboard</p>
-        <pre>{{ users }}</pre>
+        <TelasDeMenus></TelasDeMenus>
+        <!-- <p class="text-2xl">Dashboard</p>
+        <pre>{{ users }}</pre> -->
     </div>
 </template>
 
