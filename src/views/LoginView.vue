@@ -7,6 +7,7 @@ import Button from 'primevue/button';
 import http from '@/services/http';
 import useAuthStore from '@/services/authStore';
 import {useRouter} from 'vue-router';
+import { Card } from 'primevue';
 
 const router = useRouter();
 const autStore = useAuthStore();
@@ -33,7 +34,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-    <FloatingConfigurator />
+    <FloatingConfigurator />    
     <div
         class="bg-gray-50 dark:bg-neutral-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
         <div class="bg-gray-50 w-full max-w-md p-8 space-y-8 dark:bg-neutral-900 rounded-lg shadow-2xl">

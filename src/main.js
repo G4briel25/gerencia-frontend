@@ -8,7 +8,6 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import Aura from '@primeuix/themes/aura';
 
-
 import App from './App.vue'
 import router from './router/index.js'
 
@@ -19,7 +18,10 @@ app.use(createPinia())
 app.use(router);
 app.use(PrimeVue, {
     theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+            darkModeSelector: '.app-dark'
+        }
     }
 });
 

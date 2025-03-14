@@ -23,9 +23,9 @@ const logout = () => {
 
 <template>
     <FloatingConfigurator />
-    <div class=" flex items-center justify-center w-full h-screen">
+    <div class="flex items-center justify-center w-full h-screen">
         <div class="p-2 flex flex-col h-screen justify-around sm:gap-4 items-center md:flex-row lg:w-[58rem] md:h-auto">
-            <div @click="goToCadastro" class="bg-gray-50 rounded-md shadow-2xl p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl">
+            <div @click="goToCadastro" class="bg-blue-400 rounded-md shadow-[0_15px_40px_rgba(0,0,0,0.4)] p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105">
                 <div>
                     <img src="../assets/imgs/cadastro.svg" class="w-52 h-52">
                     <div class="mt-2 text-center">
@@ -34,7 +34,7 @@ const logout = () => {
                 </div>
             </div>
 
-            <div @click="goToTransparencia" class="bg-gray-50 rounded-md shadow-2xl p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl">
+            <div @click="goToTransparencia" class="bg-blue-400 rounded-md shadow-[0_15px_40px_rgba(0,0,0,0.4)] p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105">
                 <div>
                     <img src="../assets/imgs/transparencia.svg" class="w-52 h-52">
                     <div class="mt-2 text-center">
@@ -43,7 +43,7 @@ const logout = () => {
                 </div>
             </div>
 
-            <div @click="logout" class="bg-gray-50 rounded-md shadow-2xl p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105 hover:shadow-2xl">
+            <div @click="logout" class="bg-blue-400 rounded-md shadow-[0_15px_40px_rgba(0,0,0,0.4)] p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105">
                 <div>
                     <img src="../assets/imgs/sair.svg" class="w-52 h-52">
                     <div class="mt-2 text-center">
