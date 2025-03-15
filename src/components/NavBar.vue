@@ -1,62 +1,37 @@
 <script setup>
-import Menubar from 'primevue/menubar';
-import { ref } from 'vue';
+import { Breadcrumb } from "primevue";
+import Select from "primevue/select";
+import { ref, computed } from "vue";
+import FloatingConfigurator from "@/components/FloatingConfigurator.vue";
 
+const home = ref({
+    icon: 'pi pi-home'
+});
 const items = ref([
-    {
-        label: 'Home',
-        icon: 'pi pi-home'
-    },
-    {
-        label: 'Features',
-        icon: 'pi pi-star'
-    },
-    {
-        label: 'Projects',
-        icon: 'pi pi-search',
-        items: [
-            {
-                label: 'Components',
-                icon: 'pi pi-bolt'
-            },
-            {
-                label: 'Blocks',
-                icon: 'pi pi-server'
-            },
-            {
-                label: 'UI Kit',
-                icon: 'pi pi-pencil'
-            },
-            {
-                label: 'Templates',
-                icon: 'pi pi-palette',
-                items: [
-                    {
-                        label: 'Apollo',
-                        icon: 'pi pi-palette'
-                    },
-                    {
-                        label: 'Ultima',
-                        icon: 'pi pi-palette'
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        label: 'Contact',
-        icon: 'pi pi-envelope'
-    }
+    { label: 'Electronics' }, 
+    { label: 'Computer' }, 
+    { label: 'Accessories' }, 
+    { label: 'Keyboard' }, 
+    { label: 'Wireless' }
 ]);
 
 </script>
 
 <template>
-    <div class="card">
-        <Menubar :model="items" />
+    <div 
+        class="fixed z-10 top-0 rounded-sm
+            bg-gray-50/90 backdrop-blur-sm
+            p-2 max-w-7xl mx-auto w-full flex 
+            justify-between items-center 
+          dark:bg-neutral-900/90"
+        >
+            <Breadcrumb :home="home" :model="items"/>
+            <FloatingConfigurator></FloatingConfigurator>
     </div>
 </template>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.p-breadcrumb {
+    background-color: transparent;
+}
 </style>

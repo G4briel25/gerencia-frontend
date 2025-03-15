@@ -8,7 +8,7 @@ const toggleDarkMode = () => {
 </script>
 
 <template>
-    <div class="fixed flex gap-4 top-8 right-8">
+    <div>
         <Button type="button" @click="toggleDarkMode" rounded :icon="isDarkTheme ? 'pi pi-moon' : 'pi pi-sun'" severity="secondary" />
     </div>
 </template>

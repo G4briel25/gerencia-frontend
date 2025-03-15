@@ -22,11 +22,9 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div>
+    <div class="max-w-7xl mx-auto">
+        <NavBar></NavBar>
         <TelasDeMenus></TelasDeMenus>
-        <!-- <p class="text-2xl">Dashboard</p>
-        <pre>{{ users }}</pre> -->
+        <router-view></router-view>
     </div>
 </template>
-
-<style lang="scss" scoped></style>

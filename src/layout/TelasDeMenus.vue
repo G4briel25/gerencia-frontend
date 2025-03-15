@@ -1,5 +1,4 @@
 <script setup>
-import FloatingConfigurator from '@/components/FloatingConfigurator.vue';
 import useAuthStore from "@/services/authStore";
 import {useRouter} from 'vue-router';
 
@@ -8,6 +7,7 @@ const router = useRouter();
 
 const goToCadastro = () => {
   console.log("Redirecionando para Cadastro...");
+  router.push({name: "convenio"});
 };
 
 const goToTransparencia = () => {
@@ -22,9 +22,8 @@ const logout = () => {
 </script>
 
 <template>
-    <FloatingConfigurator />
-    <div class="flex items-center justify-center w-full h-screen">
-        <div class="p-2 flex flex-col h-screen justify-around sm:gap-4 items-center md:flex-row lg:w-[58rem] md:h-auto">
+    <div>
+        <div class="p-2 flex items-center flex-col gap-4 h-full md:flex-row md:justify-around md:h-screen">
             <div @click="goToCadastro" class="bg-blue-400 rounded-md shadow-[0_15px_40px_rgba(0,0,0,0.4)] p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105">
                 <div>
                     <img src="../assets/imgs/cadastro.svg" class="w-52 h-52">
@@ -54,6 +53,3 @@ const logout = () => {
         </div>
     </div>
 </template>
-
-<style lang="scss" scoped>
-</style>
