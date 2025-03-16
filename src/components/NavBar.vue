@@ -19,9 +19,8 @@ const items = ref([
 
 <template>
     <div 
-        class="fixed z-10 top-0 rounded-sm
-            bg-gray-50/90 backdrop-blur-sm
-            p-2 max-w-7xl mx-auto w-full flex 
+        class="rounded-sm shadow-sm
+            p-2 pr-6 mx-auto w-full flex 
             justify-between items-center 
           dark:bg-neutral-900/90"
         >

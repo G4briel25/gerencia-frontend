@@ -6,7 +6,6 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const goToCadastro = () => {
-  console.log("Redirecionando para Cadastro...");
   router.push({name: "convenio"});
 };
 
@@ -15,15 +14,14 @@ const goToTransparencia = () => {
 };
 
 const logout = () => {
-    console.log("Usuario deslogado");
     router.push({name: "login"})
     authStore.clearToken();
 }
 </script>
 
 <template>
-    <div>
-        <div class="p-2 flex items-center flex-col gap-4 h-full md:flex-row md:justify-around md:h-screen">
+    <div class="mt-20 mb-6 md:mt-0 md:mb-0">
+        <div class="py-2 px-4 flex items-center flex-col gap-10 h-full md:flex-row md:justify-around md:h-screen md:gap-4">
             <div @click="goToCadastro" class="bg-blue-400 rounded-md shadow-[0_15px_40px_rgba(0,0,0,0.4)] p-4 md:p-8 cursor-pointer transition-transform transform hover:scale-105">
                 <div>
                     <img src="../assets/imgs/cadastro.svg" class="w-52 h-52">

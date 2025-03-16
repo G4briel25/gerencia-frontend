@@ -8,7 +8,7 @@ const toggleDarkMode = () => {
 </script>
 
 <template>
-    <div>
+    <span>
         <Button type="button" @click="toggleDarkMode" rounded :icon="isDarkTheme ? 'pi pi-moon' : 'pi pi-sun'" severity="secondary" />
-    </div>
+    </span>
 </template>

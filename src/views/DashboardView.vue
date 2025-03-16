@@ -9,7 +9,6 @@ const users = ref([]);
 async function getUser() {
     try {
         const response = await http.get('/api/usuario');
-        console.log(response.data);
         users.value = response.data;
     } catch (error) {
         console.error(error);
