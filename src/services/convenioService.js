@@ -3,13 +3,22 @@ import http from '@/services/http';
 
 const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
     state: () => ({
-        conentent: [],
+        content: [],
+        cadastro: {
+            objeto: {},
+            showModal: false
+        }
     }),
 
     actions: {
         async listarConvenios() {
-            const response = await http.get('/api/convenios/listar');
-            this.conentent = await response.data;
+            try {
+                const response = await http.get('/api/convenios/listar');
+                this.content = response.data;
+            } catch (error) {
+                console.error('Erro ao listar convênios:', error);
+                this.content = [];
+            }
         },
     }
 });

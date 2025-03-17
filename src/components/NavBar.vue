@@ -18,12 +18,7 @@ const items = ref([
 </script>
 
 <template>
-    <div 
-        class="rounded-sm shadow-sm
-            p-2 pr-6 mx-auto w-full flex 
-            justify-between items-center 
-          dark:bg-neutral-900/90"
-        >
+    <div class="rounded-sm shadow-sm p-2 pr-6 mx-auto w-full flex justify-between items-center dark:bg-neutral-900/90">
             <Breadcrumb :home="home" :model="items"/>
             <FloatingConfigurator></FloatingConfigurator>
     </div>

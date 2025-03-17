@@ -1,23 +1,7 @@
 <script setup>
 import NavBar from '@/components/NavBar.vue';
 import TelasDeMenus from '@/layout/TelasDeMenus.vue';
-import http from '@/services/http';
-import { ref, onMounted } from 'vue';
 
-const users = ref([]);
-
-async function getUser() {
-    try {
-        const response = await http.get('/api/usuario');
-        users.value = response.data;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-onMounted(async () => {
-    await getUser();
-});
 </script>
 
 <template>
