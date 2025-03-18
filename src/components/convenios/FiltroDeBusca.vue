@@ -9,7 +9,7 @@ import { DatePicker, InputText, Select } from 'primevue';
         <div class="px-2">
             <div class="flex mb-1">
                 <Icon icon="lucide:building-2" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Proponente
                 </label>
             </div>
@@ -18,7 +18,7 @@ import { DatePicker, InputText, Select } from 'primevue';
         <div class="px-2">
             <div class="flex mb-1">
                 <Icon icon="lucide:user" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Convenente
                 </label>
             </div>
@@ -27,7 +27,7 @@ import { DatePicker, InputText, Select } from 'primevue';
         <div class="px-2">
             <div class="flex mb-1">
                 <Icon icon="tabler:users" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Responsáveis
                 </label>
             </div>
@@ -36,7 +36,7 @@ import { DatePicker, InputText, Select } from 'primevue';
         <div class="px-2">
             <div class="flex mb-1">
                 <Icon icon="flowbite:file-pen-outline" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Objeto
                 </label>
             </div>
@@ -45,7 +45,7 @@ import { DatePicker, InputText, Select } from 'primevue';
         <div class="px-2">
             <div class="flex mb-1">
                 <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Número do Convênio
                 </label>
             </div>
@@ -54,7 +54,7 @@ import { DatePicker, InputText, Select } from 'primevue';
         <div class="px-2">
             <div class="flex mb-1">
                 <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Número do Processo
                 </label>
             </div>

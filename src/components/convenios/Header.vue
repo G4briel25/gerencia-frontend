@@ -28,7 +28,6 @@ const novoConvenio = async () => {
                 Novo Convênio
             </button>
 
-            <!-- Botão com ícone + visível em sm ou menor -->
             <button
                 @click="novoConvenio"
                 class="inline-flex sm:hidden items-center p-1 gap-0 border border-transparent text-xs md:text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">

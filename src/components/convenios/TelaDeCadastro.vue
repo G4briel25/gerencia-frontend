@@ -1,9 +1,12 @@
 <script setup>
 import convenioServiceImpl from '@/services/convenioService';
+import { formatMoedaBr } from '@/utils/formatCurrency';
 import { Icon } from '@iconify/vue';
-import { Button, DatePicker, Dialog, InputText, Select } from 'primevue';
+import { Button, DatePicker, Dialog, InputNumber, InputText, Select } from 'primevue';
+import { ref } from 'vue';
 
 const convenioService = convenioServiceImpl();
+
 </script>
 
 <template>
@@ -18,7 +21,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.objetoPadrao.proponente" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -28,7 +31,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.objetoPadrao.convenente" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -38,7 +41,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.objetoPadrao.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -48,7 +51,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.objetoPadrao.objeto" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -58,7 +61,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.objetoPadrao.numeroConvenio" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -68,7 +71,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.objetoPadrao.numeroProcesso" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -78,7 +81,13 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputNumber
+                        v-model="convenioService.objetoPadrao.valorTotal"
+                        class="w-56 md:w-10/12 lg:w-11/12"
+                        prefix="R$ "
+                        locale="pt-BR"
+                        :minFractionDigits="2"
+                    />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -88,7 +97,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <Select v-model="selectedCity" :options="cities" optionLabel="name"
+                    <Select v-model="convenioService.objetoPadrao.situacaoDescricao" :options="cities" optionLabel="name"
                         placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
@@ -99,7 +108,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selecione o tipo"
+                    <Select v-model="convenioService.objetoPadrao.tipoDeConvenio" :options="cities" optionLabel="name" placeholder="Selecione o tipo"
                         class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
@@ -110,7 +119,12 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <DatePicker v-model="date" dateFormat="dd/mm/yy" />
+                    <DatePicker 
+                        v-model="convenioService.objetoPadrao.dataInicio" 
+                        dateFormat="dd/mm/yy"
+                        locale="pt-BR"
+                        inputId="data-inicio"
+                    />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -119,7 +133,12 @@ const convenioService = convenioServiceImpl();
                             Data Fim
                         </label>
                     </div>
-                    <DatePicker v-model="date" dateFormat="dd/mm/yy" />
+                    <DatePicker 
+                        v-model="convenioService.objetoPadrao.dataFim" 
+                        dateFormat="dd/mm/yy" 
+                        locale="pt-BR"
+                        inputId="data-fim"
+                    />
                 </div>
             </div>
 

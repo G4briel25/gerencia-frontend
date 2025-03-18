@@ -4,6 +4,9 @@ import { Column, DataTable } from 'primevue';
 import { defineProps } from 'vue';
 import { formatMoedaBr } from '@/utils/formatCurrency';
 import { formatDataBr } from '@/utils/formatDate';
+import convenioServiceImpl from '@/services/convenioService';
+
+const convenioService = convenioServiceImpl();
 
 const props = defineProps({
   convenios: {
@@ -11,6 +14,13 @@ const props = defineProps({
     required: true,
   },
 });
+
+const editar = async (convenioId) => {
+
+    await convenioService.buscarPorId(convenioId);
+    convenioService.cadastro.showModal = true;
+
+};
 
 </script>
 
@@ -39,9 +49,9 @@ const props = defineProps({
             </template>
         </Column>
         <Column header="Ações">
-            <template #body>
+            <template #body="slotProps">
                 <div class="flex gap-2">
-                    <button title="Editar" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
+                    <button title="Editar" @click="editar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
                         <Icon icon="mage:edit-pen" width="24" height="24" />
                     </button>
                     <button title="Detalhar" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
