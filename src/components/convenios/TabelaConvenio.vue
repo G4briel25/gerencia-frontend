@@ -2,6 +2,8 @@
 import { Icon } from '@iconify/vue';
 import { Column, DataTable } from 'primevue';
 import { defineProps } from 'vue';
+import { formatMoedaBr } from '@/utils/formatCurrency';
+import { formatDataBr } from '@/utils/formatDate';
 
 const props = defineProps({
   convenios: {
@@ -21,9 +23,21 @@ const props = defineProps({
         <Column field="convenente" header="Convenente"></Column>
         <Column field="responsaveis" header="Responsáveis"></Column>
         <Column field="objeto" header="Objeto"></Column>
-        <Column field="dataInicio" header="Data Início"></Column>
-        <Column field="dataFim" header="Data Fim"></Column>
-        <Column field="valorTotal" header="Valor Total Original"></Column>
+        <Column field="dataInicio" header="Data Início">
+            <template #body="slotProps">
+                {{ formatDataBr(slotProps.data.dataInicio) }}
+            </template>
+        </Column>
+        <Column field="dataFim" header="Data Fim">
+            <template #body="slotProps">
+                {{ formatDataBr(slotProps.data.dataFim) }}
+            </template>
+        </Column>
+        <Column field="valorTotal" header="Valor Total Original">
+            <template #body="slotProps">
+                {{ formatMoedaBr(slotProps.data.valorTotal) }}
+            </template>
+        </Column>
         <Column header="Ações">
             <template #body>
                 <div class="flex gap-2">

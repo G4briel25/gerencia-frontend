@@ -8,103 +8,104 @@ const convenioService = convenioServiceImpl();
 
 <template>
     <div>
-        <Dialog class="mx-4 w-72 md:w-[50rem] lg:w-[70rem]" v-model:visible="convenioService.cadastro.showModal" modal header="Cadastro de Convênio">
-            <div class="grid gap-2 grid-cols-1">
+        <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[80rem]" v-model:visible="convenioService.cadastro.showModal" modal header="Cadastro de Convênio">
+            <div class="grid gap-4 mb-2 sm:grid-cols-1 md:gap-2 md:grid-cols-2 lg:grid-cols-3 lg:py-4 lg:gap-8">
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="lucide:building-2" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Proponente
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12" />
+                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="lucide:user" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Convenente
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12" />
+                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="tabler:users" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Responsáveis
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12" />
+                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="flowbite:file-pen-outline" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Objeto
                         </label>
+                        <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12" />
+                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Número do Convênio
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12" />
+                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Número do Processo
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12" />
+                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="tdesign:money" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Valor Total Original
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText class="w-56 md:w-10/12" />
+                    <InputText class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Situação
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedCity" :options="cities" optionLabel="name"
-                        placeholder="Selecione a situação" class="w-56 md:w-10/12" />
+                        placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Tipo de Convênio
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selecione o tipo"
-                        class="w-56 md:w-10/12" />
+                        class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="bx:calendar" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Data Início
                         </label>
                         <span class="text-red-500 ml-2">*</span>
@@ -114,10 +115,9 @@ const convenioService = convenioServiceImpl();
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="bx:calendar" width="24" height="24" class="mr-2" />
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Data Fim
                         </label>
-                        <span class="text-red-500 ml-2">*</span>
                     </div>
                     <DatePicker v-model="date" dateFormat="dd/mm/yy" />
                 </div>
@@ -125,10 +125,10 @@ const convenioService = convenioServiceImpl();
 
 
 
-            <div class="flex justify-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary"
+            <div class="flex justify-end gap-2 pt-4">
+                <Button type="button" label="Cancelar" severity="secondary"
                     @click="convenioService.cadastro.showModal = false"></Button>
-                <Button type="button" label="Save" @click="visible = false"></Button>
+                <Button severity="info" type="button" label="Salvar" @click="visible = false"></Button>
             </div>
         </Dialog>
     </div>

@@ -12,9 +12,8 @@ import { DatePicker, InputText, Select } from 'primevue';
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Proponente
                 </label>
-                <span class="text-red-500 ml-2">*</span>
             </div>
-            <InputText class="w-80 md:w-10/12" />
+            <InputText class="w-56 md:w-80 lg:w-10/12" />
         </div>
         <div class="px-2">
             <div class="flex mb-1">
@@ -22,9 +21,8 @@ import { DatePicker, InputText, Select } from 'primevue';
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Convenente
                 </label>
-                <span class="text-red-500 ml-2">*</span>
             </div>
-            <InputText class="w-80 md:w-10/12" />
+            <InputText class="w-56 md:w-80 lg:w-10/12" />
         </div>
         <div class="px-2">
             <div class="flex mb-1">
@@ -32,9 +30,8 @@ import { DatePicker, InputText, Select } from 'primevue';
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Responsáveis
                 </label>
-                <span class="text-red-500 ml-2">*</span>
             </div>
-            <InputText class="w-80 md:w-10/12" />
+            <InputText class="w-56 md:w-80 lg:w-10/12" />
         </div>
         <div class="px-2">
             <div class="flex mb-1">
@@ -43,7 +40,7 @@ import { DatePicker, InputText, Select } from 'primevue';
                     Objeto
                 </label>
             </div>
-            <InputText class="w-80 md:w-10/12" />
+            <InputText class="w-56 md:w-80 lg:w-10/12" />
         </div>
         <div class="px-2">
             <div class="flex mb-1">
@@ -51,9 +48,8 @@ import { DatePicker, InputText, Select } from 'primevue';
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Número do Convênio
                 </label>
-                <span class="text-red-500 ml-2">*</span>
             </div>
-            <InputText class="w-80 md:w-10/12" />
+            <InputText class="w-56 md:w-80 lg:w-10/12" />
         </div>
         <div class="px-2">
             <div class="flex mb-1">
@@ -61,64 +57,11 @@ import { DatePicker, InputText, Select } from 'primevue';
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                     Número do Processo
                 </label>
-                <span class="text-red-500 ml-2">*</span>
             </div>
-            <InputText class="w-80 md:w-10/12" />
-        </div>
-        <div class="px-2">
-            <div class="flex mb-1">
-                <Icon icon="tdesign:money" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Valor Total Original
-                </label>
-                <span class="text-red-500 ml-2">*</span>
-            </div>
-            <InputText class="w-80 md:w-10/12" />
-        </div>
-        <div class="px-2">
-            <div class="flex mb-1">
-                <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Situação
-                </label>
-                <span class="text-red-500 ml-2">*</span>
-            </div>
-            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selecione a situação"
-                class="w-80 md:w-10/12" />
-        </div>
-        <div class="px-2">
-            <div class="flex mb-1">
-                <Icon icon="bx:file" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Tipo de Convênio
-                </label>
-                <span class="text-red-500 ml-2">*</span>
-            </div>
-            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selecione o tipo"
-                class="w-80 md:w-10/12" />
-        </div>
-        <div class="px-2">
-            <div class="flex mb-1">
-                <Icon icon="bx:calendar" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Data Início
-                </label>
-                <span class="text-red-500 ml-2">*</span>
-            </div>
-            <DatePicker v-model="date" dateFormat="dd/mm/yy" />
-        </div>
-        <div class="px-2">
-            <div class="flex mb-1">
-                <Icon icon="bx:calendar" width="24" height="24" class="mr-2" />
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Data Fim
-                </label>
-                <span class="text-red-500 ml-2">*</span>
-            </div>
-            <DatePicker v-model="date" dateFormat="dd/mm/yy" />
-        </div>
+            <InputText class="w-56 md:w-80 lg:w-10/12" />
+        </div>        
 
-        <div class="shadow-sm pt-4 flex justify-end items-end">
+        <div class="shadow-sm flex md:justify-end col-span-1 md:col-span-2 lg:col-span-3">
             <div class="flex justify-end">
                 <button
                     class="h-10 mr-5 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
