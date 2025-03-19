@@ -14,41 +14,44 @@ const router = createRouter({
             path: "/dashboard",
             name: "dashboard",
             component: () => import("@/views/DashboardView.vue"),
-            meta: { requiresAuth: true }
+            meta: { 
+                requiresAuth: true,
+                titulo: "Início",
+                breadcrumb: [
+                    {nome: "Início"}
+                ],
+            }
         },
 
         {
             path: "/convenio",
             name: "convenio",
             component: () => import("@/cadastro/Convenio.vue"),
-            meta: { requiresAuth: true }
+            meta: { 
+                requiresAuth: true,
+                titulo: "Convênios",
+                breadcrumb: [
+                    {nome: "Início", url: "/"},
+                    {nome: "Convênios"},
+                ],
+            }
         },
 
         {
             path: "/convenio/:id",
             name: "convenio-detalhe",
             component: () => import("@/cadastro/ConvenioDetalhe.vue"),
-            meta: { requiresAuth: true },
-            // children: [
-            //     {
-            //         path: "aditivos",
-            //         name: "aditivos",
-            //         component: () => import("@/cadastro/Aditivos.vue")
-            //     },
-            //     {
-            //         path: "lancamentos",
-            //         name: "lancamentos",
-            //         component: () => import("@/cadastro/Lancamentos.vue")
-            //     }
-            // ]
-        },
-
-        // {
-        //     path: "/transparencia",
-        //     beforeEnter() {
-        //         window.location.href = "https://site-publico.com";
-        //     }
-        // }
+            props: true,
+            meta: { 
+                requiresAuth: true,
+                titulo: "Convênios",
+                breadcrumb: [
+                    {nome: "Início", url: "/"},
+                    {nome: "Convênios", url: "/dashboard/convenios"},
+                    {nome: "Detalhes"},
+                ],
+            }
+        }
     ]
 });
 

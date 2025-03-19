@@ -5,9 +5,10 @@ import { defineProps } from 'vue';
 import { formatMoedaBr } from '@/utils/formatCurrency';
 import { formatDataBr } from '@/utils/formatDate';
 import convenioServiceImpl from '@/services/convenioService';
+import { useRouter } from 'vue-router';
 
 const convenioService = convenioServiceImpl();
-
+const router = useRouter();
 const props = defineProps({
   convenios: {
     type: Array,
@@ -15,11 +16,13 @@ const props = defineProps({
   },
 });
 
-const editar = async (convenioId) => {
-
-    await convenioService.buscarPorId(convenioId);
+const editar = async (id) => {
+    await convenioService.buscarPorId(id);
     convenioService.cadastro.showModal = true;
+};
 
+const detalhar = (id) => {
+    router.push({ name: 'convenio-detalhe', params: {id} });
 };
 
 </script>
@@ -54,7 +57,7 @@ const editar = async (convenioId) => {
                     <button title="Editar" @click="editar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
                         <Icon icon="mage:edit-pen" width="24" height="24" />
                     </button>
-                    <button title="Detalhar" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
+                    <button title="Detalhar" @click="detalhar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
                         <Icon icon="fluent:eye-12-regular" width="24" height="24" />
                     </button>
                 </div>

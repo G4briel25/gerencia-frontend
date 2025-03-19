@@ -35,12 +35,21 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
             }
         },
 
-        async buscarPorId(convenioId) {
+        async buscarPorId(_convenioId) {
             try {
-                const response = await http.get(`/api/convenios/${convenioId}`)
+                const response = await http.get(`/api/convenios/${_convenioId}`)
                 this.objetoPadrao = response.data;
             } catch (error) {
                 console.log('Erro ao editar convênio:', error);
+            }
+        },
+
+        async listarConvenioPorId(_convenioId) {
+            try {
+                const response = await http.get(`/api/convenios/${_convenioId}/detalhado`);
+                this.content = response.data;
+            } catch (error) {
+                console.log('Erro ao listar convênio por id:', error);                
             }
         }
     }

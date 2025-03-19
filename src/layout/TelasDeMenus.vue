@@ -10,7 +10,7 @@ const goToCadastro = () => {
 };
 
 const goToTransparencia = () => {
-  console.log("Redirecionando para Transparência...");
+    window.open("https://www.google.com", "_blank");
 };
 
 const logout = () => {

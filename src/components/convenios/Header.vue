@@ -18,7 +18,7 @@ const novoConvenio = async () => {
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <Icon icon="bx:file" width="36" height="36" class="hidden md:block text-blue-700 dark:text-white" />
-                    <h1 class="ml-2 text-lg md:text-2xl font-bold text-gray-900 dark:text-white">Gestão de Convênios
+                    <h1 class="ml-2 text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Gestão de Convênios
                     </h1>
                 </div>
                 <button
