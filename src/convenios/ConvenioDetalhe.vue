@@ -1,6 +1,7 @@
 <script setup>
 import {defineProps, onMounted} from 'vue';
-import {DataTable, Panel} from 'primevue';
+import Panel from 'primevue/panel';
+import ConvenioDetalhesDataTable from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesDataTable.vue'
 import NavBar from '@/components/NavBar.vue';
 import Detalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhes.vue'
 import HeaderDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesCabecalho.vue';
@@ -29,7 +30,7 @@ onMounted( async () => {
                 <Detalhes :convenioService="convenioService.convenioDetalhado"></Detalhes>
             </Panel>
             <br><br>
-            <DataTable></DataTable>
+            <ConvenioDetalhesDataTable></ConvenioDetalhesDataTable>
         </main>
     </div>
 </template>

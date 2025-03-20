@@ -10,6 +10,11 @@ const situacaoOpcoes = ref([
     { name: 'Em execução' },
     { name: 'Em andamento' }
 ]);
+
+const tipoConvenio = ref([
+    { name: 'Obra Pública' },
+    { name: 'Federal' }
+]);
 </script>
 
 <template>
@@ -111,7 +116,7 @@ const situacaoOpcoes = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <Select v-model="convenioService.objetoPadrao.tipoDeConvenio" :options="situacaoOpcoes" optionLabel="name" placeholder="Selecione o tipo"
+                    <Select v-model="convenioService.objetoPadrao.tipoDeConvenio" :options="tipoConvenio" optionLabel="name" placeholder="Selecione o tipo"
                         class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
