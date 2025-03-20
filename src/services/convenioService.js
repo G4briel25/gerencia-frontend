@@ -4,6 +4,7 @@ import http from '@/services/http';
 const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
     state: () => ({
         content: [],
+        convenioDetalhado: [],
         objetoPadrao: {
             id: null,
             numeroConvenio: null,
@@ -47,7 +48,7 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
         async listarConvenioPorId(_convenioId) {
             try {
                 const response = await http.get(`/api/convenios/${_convenioId}/detalhado`);
-                this.content = response.data;
+                this.convenioDetalhado = response.data;
             } catch (error) {
                 console.log('Erro ao listar convênio por id:', error);                
             }

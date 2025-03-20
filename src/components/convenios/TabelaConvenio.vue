@@ -2,13 +2,16 @@
 import { Icon } from '@iconify/vue';
 import { Column, DataTable } from 'primevue';
 import { defineProps } from 'vue';
-import { formatMoedaBr } from '@/utils/formatCurrency';
-import { formatDataBr } from '@/utils/formatDate';
+import funcoes from '@/utils/funcoes.js';
 import convenioServiceImpl from '@/services/convenioService';
 import { useRouter } from 'vue-router';
 
+const { formatarDataBr, formatarMoedaBr } = funcoes();
+
 const convenioService = convenioServiceImpl();
+
 const router = useRouter();
+
 const props = defineProps({
   convenios: {
     type: Array,
@@ -38,17 +41,17 @@ const detalhar = (id) => {
         <Column field="objeto" header="Objeto"></Column>
         <Column field="dataInicio" header="Data Início">
             <template #body="slotProps">
-                {{ formatDataBr(slotProps.data.dataInicio) }}
+                {{ formatarDataBr(slotProps.data.dataInicio) }}
             </template>
         </Column>
         <Column field="dataFim" header="Data Fim">
             <template #body="slotProps">
-                {{ formatDataBr(slotProps.data.dataFim) }}
+                {{ formatarDataBr(slotProps.data.dataFim) }}
             </template>
         </Column>
         <Column field="valorTotal" header="Valor Total Original">
             <template #body="slotProps">
-                {{ formatMoedaBr(slotProps.data.valorTotal) }}
+                {{ formatarMoedaBr(slotProps.data.valorTotal) }}
             </template>
         </Column>
         <Column header="Ações">

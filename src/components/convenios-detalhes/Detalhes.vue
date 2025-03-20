@@ -1,9 +1,9 @@
 <script setup>
 import { Icon } from '@iconify/vue';
-import { DatePicker, InputText, Select } from 'primevue';
 import { defineProps } from 'vue';
-import { formatMoedaBr } from '@/utils/formatCurrency';
-import { formatDataBr } from '@/utils/formatDate';
+import funcoes from '@/utils/funcoes.js';
+
+const { formatarDataBr, formatarMoedaBr } = funcoes();
 
 const props = defineProps(['convenioService']);
 
@@ -87,7 +87,7 @@ const props = defineProps(['convenioService']);
                 <label class="mr-2 text-md font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Valor Total:
                 </label>
-                <span class="text-gray-900 dark:text-gray-200">{{ formatMoedaBr(convenioService.valorTotal) }}</span>
+                <span class="text-gray-900 dark:text-gray-200">{{ formatarMoedaBr(convenioService.valorTotal) }}</span>
             </div>
         </div>
 
@@ -117,7 +117,7 @@ const props = defineProps(['convenioService']);
                 <label class="mr-2 text-md font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Data Início
                 </label>
-                <span class="text-gray-900 dark:text-gray-200">{{ formatDataBr(convenioService.dataInicio) }}</span>
+                <span class="text-gray-900 dark:text-gray-200">{{ formatarDataBr(convenioService.dataInicio) }}</span>
             </div>
         </div>
         
@@ -127,7 +127,7 @@ const props = defineProps(['convenioService']);
                 <label class="mr-2 text-md font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Data Fim
                 </label>
-                <span class="text-gray-900 dark:text-gray-200">{{ formatDataBr(convenioService.dataFim) }}</span>
+                <span class="text-gray-900 dark:text-gray-200">{{ formatarDataBr(convenioService.dataFim) }}</span>
             </div>
         </div>
     </div>

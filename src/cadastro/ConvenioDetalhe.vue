@@ -28,7 +28,7 @@ console.log("ID do Convênio:", props.id);
         <main>
             <Panel header="Filtros" class="shadow-md">
                 <br>
-                <Detalhes :convenioService="convenioService.content"></Detalhes>
+                <Detalhes :convenioService="convenioService.convenioDetalhado"></Detalhes>
             </Panel>
             <br><br>
             <DataTable></DataTable>

@@ -1,9 +1,7 @@
 <script setup>
 import convenioServiceImpl from '@/services/convenioService';
-import { formatMoedaBr } from '@/utils/formatCurrency';
 import { Icon } from '@iconify/vue';
 import { Button, DatePicker, Dialog, InputNumber, InputText, Select } from 'primevue';
-import { ref } from 'vue';
 
 const convenioService = convenioServiceImpl();
 
