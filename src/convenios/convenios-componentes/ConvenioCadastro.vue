@@ -1,5 +1,5 @@
 <script setup>
-import convenioServiceImpl from '@/services/convenioService';
+import convenioServiceImpl from '@/services/convenioService.js';
 import { Icon } from '@iconify/vue';
 import { Button, DatePicker, Dialog, InputNumber, InputText, Select } from 'primevue';
 

@@ -22,7 +22,7 @@ const handleLogin = async () => {
         const response = await http.post('/auth/login', user.value);
         
         autStore.setToken(response.data.token);
-        router.push({ name: 'dashboard' });
+        await router.push({name: 'dashboard'});
 
     } catch (error) {
         mensagemError.value = "Usuário ou senha inválidos";

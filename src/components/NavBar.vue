@@ -1,9 +1,8 @@
 <script setup>
-import { Breadcrumb, Button, Menu } from "primevue";
-import Select from "primevue/select";
-import { ref, computed } from "vue";
+import {Breadcrumb, Button, Menu} from "primevue";
+import {ref} from "vue";
 import FloatingConfigurator from "@/components/FloatingConfigurator.vue";
-import { Icon } from "@iconify/vue";
+import {Icon} from "@iconify/vue";
 
 const home = ref({
     icon: 'pi pi-home'

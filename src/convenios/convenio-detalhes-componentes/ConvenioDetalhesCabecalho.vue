@@ -1,8 +1,8 @@
 <script setup>
-import { Icon } from '@iconify/vue';
-import convenioServiceImpl from '@/services/convenioService';
-import { defineProps } from 'vue';
-import { Button } from 'primevue';
+import {Icon} from '@iconify/vue';
+import convenioServiceImpl from '@/services/convenioService.js';
+import {defineProps} from 'vue';
+import {Button} from 'primevue';
 
 const props = defineProps(['convenioId']);
 const convenioService = convenioServiceImpl();

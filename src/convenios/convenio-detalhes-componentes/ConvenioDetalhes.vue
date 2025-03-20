@@ -1,6 +1,6 @@
 <script setup>
-import { Icon } from '@iconify/vue';
-import { defineProps } from 'vue';
+import {Icon} from '@iconify/vue';
+import {defineProps} from 'vue';
 import funcoes from '@/utils/funcoes.js';
 
 const { formatarDataBr, formatarMoedaBr } = funcoes();

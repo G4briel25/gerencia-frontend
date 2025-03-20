@@ -1,7 +1,7 @@
 <script setup>
-import { Icon } from '@iconify/vue';
-import TelaDeCadastro from '@/components/convenios/TelaDeCadastro.vue';
-import convenioServiceImpl from '@/services/convenioService';
+import {Icon} from '@iconify/vue';
+import ConvenioCadastro from '@/convenios/convenios-componentes/ConvenioCadastro.vue';
+import convenioServiceImpl from '@/services/convenioService.js';
 
 
 const convenioService = convenioServiceImpl();
@@ -37,5 +37,5 @@ const novoConvenio = async () => {
         </div>
     </header>
 
-    <TelaDeCadastro></TelaDeCadastro>
+    <ConvenioCadastro></ConvenioCadastro>
 </template>

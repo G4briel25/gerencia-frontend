@@ -1,8 +1,4 @@
-import {useRouter} from 'vue-router';
 import { defineStore } from "pinia";
-
-
-const router = useRouter();
 
 const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -18,7 +14,6 @@ const useAuthStore = defineStore('auth', {
         clearToken() {
             this.token = null;
             localStorage.removeItem("token");
-            router.push({ name: "login" });
         }
     }
 });

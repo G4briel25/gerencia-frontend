@@ -1,7 +1,6 @@
 <script setup>
-import { Icon } from '@iconify/vue';
-import { DatePicker, InputText, Select } from 'primevue';
-
+import {Icon} from '@iconify/vue';
+import {InputText} from 'primevue';
 </script>
 
 <template>

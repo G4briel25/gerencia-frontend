@@ -14,9 +14,9 @@ const goToTransparencia = () => {
 };
 
 const logout = () => {
-    router.push({name: "login"})
     authStore.clearToken();
-}
+    router.push({ name: 'login' });
+};
 </script>
 
 <template>

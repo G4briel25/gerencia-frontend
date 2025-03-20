@@ -1,9 +1,4 @@
 import axios from "axios";
-import useAuthStore from "@/services/authStore";
-import { useRouter } from "vue-router";
-
-const authStore = useAuthStore();
-const router = useRouter();
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:8081",
@@ -11,7 +6,6 @@ const axiosInstance = axios.create({
         "Content-type": "application/json"
     }
 });
-
 
 axiosInstance.interceptors.request.use(
     (config) => {
@@ -31,10 +25,6 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response && error.response.status === 401) {
-            authStore.clearToken();
-            router.push({ name: "login" });
-        }
         return Promise.reject(error);
     }
 );

@@ -1,13 +1,13 @@
 <script setup>
-import { defineProps, onMounted } from 'vue';
-import { DataTable, Panel } from 'primevue';
+import {defineProps, onMounted} from 'vue';
+import {DataTable, Panel} from 'primevue';
 import NavBar from '@/components/NavBar.vue';
-import Detalhes from '@/components/convenios-detalhes/Detalhes.vue'
-import HeaderDetalhes from '@/components/convenios-detalhes/HeaderDetalhes.vue';
+import Detalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhes.vue'
+import HeaderDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesCabecalho.vue';
 import convenioServiceImpl from '@/services/convenioService';
 
 const props = defineProps({
-  id: Number,
+  id: String,
 });
 
 const convenioService = convenioServiceImpl();
@@ -15,8 +15,6 @@ const convenioService = convenioServiceImpl();
 onMounted( async () => {
     await convenioService.listarConvenioPorId(props.id);
 });
-
-console.log("ID do Convênio:", props.id);
 
 </script>
 

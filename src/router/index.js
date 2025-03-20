@@ -26,7 +26,7 @@ const router = createRouter({
         {
             path: "/convenio",
             name: "convenio",
-            component: () => import("@/cadastro/Convenio.vue"),
+            component: () => import("@/convenios/Convenio.vue"),
             meta: { 
                 requiresAuth: true,
                 titulo: "Convênios",
@@ -40,7 +40,7 @@ const router = createRouter({
         {
             path: "/convenio/:id",
             name: "convenio-detalhe",
-            component: () => import("@/cadastro/ConvenioDetalhe.vue"),
+            component: () => import("@/convenios/ConvenioDetalhe.vue"),
             props: true,
             meta: { 
                 requiresAuth: true,
