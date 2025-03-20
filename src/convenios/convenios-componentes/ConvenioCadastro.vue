@@ -2,9 +2,14 @@
 import convenioServiceImpl from '@/services/convenioService.js';
 import { Icon } from '@iconify/vue';
 import { Button, DatePicker, Dialog, InputNumber, InputText, Select } from 'primevue';
+import {ref} from "vue";
 
 const convenioService = convenioServiceImpl();
 
+const situacaoOpcoes = ref([
+    { name: 'Em execução' },
+    { name: 'Em andamento' }
+]);
 </script>
 
 <template>
@@ -95,7 +100,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <Select v-model="convenioService.objetoPadrao.situacaoDescricao" :options="cities" optionLabel="name"
+                    <Select v-model="convenioService.objetoPadrao.situacaoDescricao" :options="situacaoOpcoes" optionLabel="name"
                         placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
@@ -106,7 +111,7 @@ const convenioService = convenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <Select v-model="convenioService.objetoPadrao.tipoDeConvenio" :options="cities" optionLabel="name" placeholder="Selecione o tipo"
+                    <Select v-model="convenioService.objetoPadrao.tipoDeConvenio" :options="situacaoOpcoes" optionLabel="name" placeholder="Selecione o tipo"
                         class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">

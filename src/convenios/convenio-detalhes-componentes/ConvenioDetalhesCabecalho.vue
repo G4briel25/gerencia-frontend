@@ -8,7 +8,7 @@ const props = defineProps(['convenioId']);
 const convenioService = convenioServiceImpl();
 
 const excluirConvenio = (convenioId) => {
-    console.log("....", convenioId);
+
 };
 
 </script>
