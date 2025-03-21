@@ -1,13 +1,14 @@
 <script setup>
 import {defineProps, onMounted} from 'vue';
-import {DataTable, Panel} from 'primevue';
+import Panel from 'primevue/panel';
+import ConvenioDetalhesDataTable from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesDataTable.vue'
 import NavBar from '@/components/NavBar.vue';
-import Detalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhes.vue'
+import ConvenioDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhes.vue'
 import HeaderDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesCabecalho.vue';
 import convenioServiceImpl from '@/services/convenioService';
 
 const props = defineProps({
-  id: String,
+    id: String,
 });
 
 const convenioService = convenioServiceImpl();
@@ -26,10 +27,10 @@ onMounted( async () => {
         <main>
             <Panel header="Filtros" class="shadow-md">
                 <br>
-                <Detalhes :convenioService="convenioService.convenioDetalhado"></Detalhes>
+                <ConvenioDetalhes :convenioService="convenioService.convenioDetalhado"></ConvenioDetalhes>
             </Panel>
             <br><br>
-            <DataTable></DataTable>
+            <ConvenioDetalhesDataTable :convenioService="convenioService.convenioDetalhado"></ConvenioDetalhesDataTable>
         </main>
     </div>
 </template>
