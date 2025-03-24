@@ -1,5 +1,4 @@
 <script setup>
-import NavBar from '@/components/NavBar.vue';
 import convenioServiceImpl from '@/services/convenioService.js';
 import {onMounted} from 'vue';
 import ConvenioCabecalho from '@/convenios/convenios-componentes/ConvenioCabecalho.vue';
@@ -28,7 +27,6 @@ onMounted( async () => {
 </script>
 
 <template>
-    <NavBar></NavBar>
     <div class="py-2 px-5">
         <ConvenioCabecalho></ConvenioCabecalho>
         <br>

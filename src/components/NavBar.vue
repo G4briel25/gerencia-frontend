@@ -1,37 +1,89 @@
 <script setup>
-import {Breadcrumb, Button, Menu} from "primevue";
-import {ref} from "vue";
+import { Icon } from "@iconify/vue";
+import { Breadcrumb, Button, Menu } from "primevue";
+import { ref, computed } from "vue";
 import FloatingConfigurator from "@/components/FloatingConfigurator.vue";
-import {Icon} from "@iconify/vue";
+import { useRoute } from "vue-router";
 
-const home = ref({
-    icon: 'pi pi-home'
+const route = useRoute();
+
+
+// Mobile
+const homeMenu = ref({
+    label: "Home",
+    to: "/",
 });
-const items = ref([
-    { label: 'Electronics' }, 
-    { label: 'Computer' }, 
-    { label: 'Accessories' }, 
-    { label: 'Keyboard' }, 
-    { label: 'Wireless' }
-]);
 
-const menu = ref();
+
+const homeBreadcrumb = ref({
+    icon: "pi pi-home",
+    to: "/",
+});
+
+const items = computed(() => {
+    const matched = route.matched;
+    if (!matched || matched.length === 0) {
+        return [];
+    }
+
+    return matched.reduce((acc, item) => {
+        if (item.meta.breadcrumb) {
+            return acc.concat(
+                item.meta.breadcrumb.map((breadcrumbItem) => ({
+                    label: breadcrumbItem.nome,
+                    to: breadcrumbItem.url ? { path: breadcrumbItem.url } : undefined,
+                }))
+            );
+        }
+        return acc;
+    }, []);
+});
+
+const menu = ref(null);
+
 const toggle = (event) => {
-    menu.value.toggle(event);
+    if (menu.value) {
+        menu.value.toggle(event);
+    }
 };
-
 </script>
 
 <template>
     <div class="hidden md:flex rounded-sm shadow-sm p-2 pr-6 mx-auto w-full justify-between items-center dark:bg-neutral-900/90">
-        <Breadcrumb :home="home" :model="items" />
+        <Breadcrumb :home="homeBreadcrumb" :model="items">
+            <template #item="{ item, props }">
+                <router-link v-if="item.to" v-slot="{ href, navigate }" :to="item.to" custom>
+                    <a :href="href" v-bind="props.action" @click="navigate">
+                        <span v-if="item.icon" :class="item.icon" class="text-primary mr-1" />
+                        <span class="text-primary font-semibold">{{ item.label }}</span>
+                    </a>
+                </router-link>
+                <a v-else :href="item.url" :target="item.target" v-bind="props.action">
+                    <span class="text-surface-700 dark:text-surface-0">{{ item.label }}</span>
+                </a>
+            </template>
+        </Breadcrumb>
         <FloatingConfigurator />
     </div>
+
+
+<!--    Mobile   -->
     <div class="flex justify-between pl-6 pt-6 pr-5 md:hidden">
         <Button severity="info" type="button" @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
-            <Icon icon="material-symbols:menu" width="24" height="24"/>
+            <Icon icon="material-symbols:menu" width="24" height="24" />
         </Button>
-        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
+        <Menu ref="menu" id="overlay_menu" :model="[homeMenu, ...items]" :popup="true">
+            <template #item="{ item, props }">
+                <router-link v-if="item.to" v-slot="{ href, navigate }" :to="item.to" custom>
+                    <a :href="href" v-bind="props.action" @click="navigate">
+                        <span class="text-primary font-semibold">{{ item.label }}</span>
+                    </a>
+                </router-link>
+                <a v-else :href="item.url" :target="item.target" v-bind="props.action">
+                    <span class="text-surface-700 dark:text-surface-0">{{ item.label }}</span>
+                </a>
+            </template>
+        </Menu>
         <FloatingConfigurator />
     </div>
 </template>
