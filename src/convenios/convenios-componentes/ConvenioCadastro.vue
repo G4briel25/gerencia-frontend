@@ -2,7 +2,7 @@
 import convenioServiceImpl from '@/services/convenioService.js';
 import { Icon } from '@iconify/vue';
 import { Button, DatePicker, Dialog, InputNumber, InputText, Select } from 'primevue';
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 const convenioService = convenioServiceImpl();
 
@@ -15,6 +15,30 @@ const tipoConvenio = ref([
     { name: 'Obra Pública' },
     { name: 'Federal' }
 ]);
+
+
+const selectedSituacao = computed({
+    get: () => {
+        return situacaoOpcoes.value.find(
+            (opcao) => opcao.name === convenioService.cadastro.objeto.situacaoDescricao
+        );
+    },
+    set: (newValue) => {
+        convenioService.cadastro.objeto.situacaoDescricao = newValue.name;
+    }
+});
+
+const selectedTipoConvenio = computed({
+    get: () => {
+        return tipoConvenio.value.find(
+            (opcao) => opcao.name === convenioService.cadastro.objeto.tipoDeConvenio
+        );
+    },
+    set: (newValue) => {
+        convenioService.cadastro.objeto.tipoDeConvenio = newValue.name;
+    }
+});
+
 </script>
 
 <template>
@@ -29,7 +53,7 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.objetoPadrao.proponente" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.proponente" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -39,7 +63,7 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.objetoPadrao.convenente" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.convenente" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -49,7 +73,7 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.objetoPadrao.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -59,7 +83,7 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.objetoPadrao.objeto" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.objeto" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -69,7 +93,7 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.objetoPadrao.numeroConvenio" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.numeroConvenio" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -79,7 +103,7 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.objetoPadrao.numeroProcesso" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.numeroProcesso" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -90,7 +114,7 @@ const tipoConvenio = ref([
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <InputNumber
-                        v-model="convenioService.objetoPadrao.valorTotal"
+                        v-model="convenioService.cadastro.objeto.valorTotal"
                         class="w-56 md:w-10/12 lg:w-11/12"
                         prefix="R$ "
                         locale="pt-BR"
@@ -105,8 +129,8 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <Select v-model="convenioService.objetoPadrao.situacaoDescricao" :options="situacaoOpcoes" optionLabel="name"
-                        placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <Select v-model="selectedSituacao" :options="situacaoOpcoes" optionLabel="name"
+                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -116,7 +140,7 @@ const tipoConvenio = ref([
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <Select v-model="convenioService.objetoPadrao.tipoDeConvenio" :options="tipoConvenio" optionLabel="name" placeholder="Selecione o tipo"
+                    <Select v-model="selectedTipoConvenio" :options="tipoConvenio" optionLabel="name" placeholder="Selecione o tipo"
                         class="w-56 md:w-10/12 lg:w-11/12" />
                 </div>
                 <div class="px-2">
@@ -128,7 +152,7 @@ const tipoConvenio = ref([
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <DatePicker 
-                        v-model="convenioService.objetoPadrao.dataInicio" 
+                        v-model="convenioService.cadastro.objeto.dataInicio"
                         dateFormat="dd/mm/yy"
                         locale="pt-BR"
                         inputId="data-inicio"
@@ -142,7 +166,7 @@ const tipoConvenio = ref([
                         </label>
                     </div>
                     <DatePicker 
-                        v-model="convenioService.objetoPadrao.dataFim" 
+                        v-model="convenioService.cadastro.objeto.dataFim"
                         dateFormat="dd/mm/yy" 
                         locale="pt-BR"
                         inputId="data-fim"
