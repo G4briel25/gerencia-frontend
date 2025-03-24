@@ -2,7 +2,6 @@
 import {defineProps, onMounted} from 'vue';
 import Panel from 'primevue/panel';
 import ConvenioDetalhesDataTable from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesDataTable.vue'
-import NavBar from '@/components/NavBar.vue';
 import ConvenioDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhes.vue'
 import HeaderDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesCabecalho.vue';
 import convenioServiceImpl from '@/services/convenioService';
@@ -20,7 +19,6 @@ onMounted( async () => {
 </script>
 
 <template>
-    <NavBar></NavBar>
     <div class="py-2 px-5">
         <HeaderDetalhes :convenioId="props.id"></HeaderDetalhes>
         <br>

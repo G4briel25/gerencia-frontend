@@ -35,7 +35,7 @@ const props = defineProps(['convenioService']);
                             {{ formatarMoedaBr(slotProps.data.valorPago) }}
                         </template>
                     </Column>
-                    <Column header="Ações">
+                    <Column header="Ações" style="width: 8rem">
                         <template #body="slotProps">
                             <div class="flex gap-2">
                                 <button title="Editar" @click="editar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
@@ -70,7 +70,7 @@ const props = defineProps(['convenioService']);
                         </template>
                     </Column>
                     <Column field="situacaoDescricaoAditivo" header="Situação"></Column>
-                    <Column header="Ações">
+                    <Column header="Ações" style="width: 8rem">
                         <template #body="slotProps">
                             <div class="flex gap-2">
                                 <button title="Editar" @click="editar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
