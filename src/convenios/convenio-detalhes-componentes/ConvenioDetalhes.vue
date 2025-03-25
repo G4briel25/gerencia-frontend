@@ -13,7 +13,7 @@ const props = defineProps(['convenioService']);
     <div class="flex flex-col gap-4 md:grid md:gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-x-4 md:gap-y-8">
         <div class="px-2 bg-neutral-200 dark:bg-neutral-800 md:bg-transparent md:dark:bg-transparent">
             <div class="flex justify-between md:justify-normal mb-1">
-                <Icon icon="lucide:building-2" width="24" height="24" class="hidden md:block md:mr-2" />
+                <Icon icon="tabler:number" width="24" height="24" class="hidden md:block md:mr-2" />
                 <label class="mr-2 text-md font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Identificador:
                 </label>
@@ -103,7 +103,7 @@ const props = defineProps(['convenioService']);
 
         <div class="px-2">
             <div class="flex justify-between md:justify-normal mb-1">
-                <Icon icon="tdesign:money" width="24" height="24" class="hidden md:block md:mr-2" />
+                <Icon icon="bx:file" width="24" height="24" class="mr-2" />
                 <label class="mr-2 text-md font-medium text-gray-700 dark:text-gray-200 mb-1">
                     Situação:
                 </label>

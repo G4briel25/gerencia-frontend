@@ -39,7 +39,7 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
         async buscarPorId(_convenioId) {
             try {
                 const response = await http.get(`/api/convenios/${_convenioId}`)
-                this.objetoPadrao = response.data;
+                this.cadastro.objeto = response.data;
             } catch (error) {
                 console.log('Erro ao editar convênio:', error);
             }

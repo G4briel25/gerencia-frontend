@@ -2,12 +2,14 @@
 import {Icon} from '@iconify/vue';
 import ConvenioCadastro from '@/convenios/convenios-componentes/ConvenioCadastro.vue';
 import convenioServiceImpl from '@/services/convenioService.js';
+import {reactive} from "vue";
 
 
 const convenioService = convenioServiceImpl();
 
 const novoConvenio = async () => {
     convenioService.cadastro.showModal = true;
+    convenioService.cadastro.objeto = reactive({...convenioService.objetoPadrao});
 };
 
 </script>
@@ -28,6 +30,8 @@ const novoConvenio = async () => {
                 Novo Convênio
             </button>
 
+
+<!--        Mobile-->
             <button
                 @click="novoConvenio"
                 class="inline-flex sm:hidden items-center p-1 gap-0 border border-transparent text-xs md:text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
