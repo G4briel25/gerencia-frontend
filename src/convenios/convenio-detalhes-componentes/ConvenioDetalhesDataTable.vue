@@ -8,10 +8,26 @@ import TabPanel from 'primevue/tabpanel';
 import {defineProps} from "vue";
 import funcoes from '@/utils/funcoes.js';
 import {Icon} from "@iconify/vue";
+import lancamentoConvenioServiceImpl from '@/services/lancamentoConvenioService.js';
+import LancamentoConvenioCadastro
+    from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoConvenioCadastro.vue";
+import AditivoCadastro from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoCadastro.vue";
+import aditivoServiceImpl from "@/services/aditivoService.js";
 
 const { formatarDataBr, formatarMoedaBr } = funcoes();
-
 const props = defineProps(['convenioService']);
+const lancamentoConvenioService = lancamentoConvenioServiceImpl();
+const aditivoService = aditivoServiceImpl();
+
+const editarLancamento = async (_convenioId, _lancamentoId) => {
+    await lancamentoConvenioService.buscarPorId(_convenioId, _lancamentoId);
+    lancamentoConvenioService.cadastro.showModal = true;
+};
+
+const editarAditivo = async (_convenioId, _aditivoId) => {
+    await aditivoService.buscarPorId(_convenioId, _aditivoId);
+    aditivoService.cadastro.showModal = true;
+};
 </script>
 
 <template>
@@ -38,7 +54,7 @@ const props = defineProps(['convenioService']);
                     <Column header="Ações" style="width: 8rem">
                         <template #body="slotProps">
                             <div class="flex gap-2">
-                                <button title="Editar" @click="editar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
+                                <button title="Editar" @click="editarLancamento(props.convenioService.id, slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
                                     <Icon icon="mage:edit-pen" width="24" height="24" />
                                 </button>
                                 <button title="Excluir" @click="excluir(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-red-600 hover:text-red-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-gray-700">
@@ -73,7 +89,7 @@ const props = defineProps(['convenioService']);
                     <Column header="Ações" style="width: 8rem">
                         <template #body="slotProps">
                             <div class="flex gap-2">
-                                <button title="Editar" @click="editar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
+                                <button title="Editar" @click="editarAditivo(props.convenioService.id, slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
                                     <Icon icon="mage:edit-pen" width="24" height="24" />
                                 </button>
                                 <button title="Detalhar" @click="detalhar(slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
@@ -86,4 +102,7 @@ const props = defineProps(['convenioService']);
             </TabPanel>
         </TabPanels>
     </Tabs>
+
+    <LancamentoConvenioCadastro></LancamentoConvenioCadastro>
+    <AditivoCadastro></AditivoCadastro>
 </template>
