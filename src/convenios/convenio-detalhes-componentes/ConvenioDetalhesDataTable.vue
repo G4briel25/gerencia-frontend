@@ -1,5 +1,5 @@
 <script setup>
-import {Button, Column, DataTable} from "primevue";
+import {Column, DataTable} from "primevue";
 import Tabs from 'primevue/tabs';
 import TabList from 'primevue/tablist';
 import Tab from 'primevue/tab';
@@ -33,8 +33,23 @@ const editarAditivo = async (_convenioId, _aditivoId) => {
 <template>
     <Tabs value="0">
         <TabList>
-            <Tab value="0">Lançamentos</Tab>
-            <Tab value="1">Aditivos</Tab>
+            <div class="w-full flex justify-between">
+                <span>
+                    <Tab value="0">Lançamentos</Tab>
+                    <Tab value="1">Aditivos</Tab>
+                </span>
+
+                <span class="flex items-center justify-center mr-2">
+                    <button
+                        class="p-2 gap-1 border border-transparent font-medium
+                        rounded-md shadow-sm text-white bg-blue-600
+                        hover:bg-blue-700 focus:outline-none focus:ring-2
+                        focus:ring-offset-2 focus:ring-blue-500
+                    ">
+                    <Icon icon="ic:baseline-plus" width="24" height="24" class=""/>
+                </button>
+                </span>
+            </div>
         </TabList>
         <TabPanels>
             <TabPanel value="0">

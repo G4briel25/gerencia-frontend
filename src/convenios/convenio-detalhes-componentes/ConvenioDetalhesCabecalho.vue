@@ -22,9 +22,15 @@ const excluirConvenio = (convenioId) => {
                     <h1 class="ml-2 text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Detalhes do Convênio
                     </h1>
                 </div>
-                <Button @click="excluirConvenio(convenioId)" v-tooltip.left="'Excluir'" severity="danger">
+                <button
+                    @click="excluirConvenio(convenioId)" v-tooltip.left="'Excluir'"
+                    class="p-2 gap-0 border border-transparent rounded-md shadow-sm
+                        text-white bg-red-500 hover:bg-red-600
+                        focus:outline-none focus:ring-2 focus:ring-offset-2
+                        focus:ring-red-500
+                    ">
                     <Icon icon="iconamoon:trash" width="24" height="24" />
-                </Button>
+                </button>
             </div>
         </div>
     </header>

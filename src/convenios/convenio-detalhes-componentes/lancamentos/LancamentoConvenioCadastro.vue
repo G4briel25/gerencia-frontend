@@ -9,8 +9,8 @@ const lancamentoService = lancamentoConvenioServiceImpl();
 
 <template>
     <div>
-        <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[80rem]" v-model:visible="lancamentoService.cadastro.showModal" modal header="Cadastro de Lançamento do Convênio">
-            <div class="grid gap-4 mb-2 sm:grid-cols-1 md:gap-2 md:grid-cols-2 lg:grid-cols-3 lg:py-4 lg:gap-8">
+        <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[45rem]" v-model:visible="lancamentoService.cadastro.showModal" modal header="Cadastro de Lançamento do Convênio">
+            <div class="grid gap-8 mb-2 grid-cols-1 md:grid-cols-2 lg:py-4">
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="iwwa:year" width="24" height="24" class="mr-2" />
@@ -19,7 +19,7 @@ const lancamentoService = lancamentoConvenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="lancamentoService.cadastro.objeto.exercicio" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="lancamentoService.cadastro.objeto.exercicio" class="w-52" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -31,7 +31,7 @@ const lancamentoService = lancamentoConvenioServiceImpl();
                     </div>
                     <InputNumber
                         v-model="lancamentoService.cadastro.objeto.valorPago"
-                        class="w-56 md:w-10/12 lg:w-11/12"
+                        class="w-52"
                         prefix="R$ "
                         locale="pt-BR"
                         :minFractionDigits="2"
