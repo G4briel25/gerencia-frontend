@@ -26,7 +26,7 @@ const selectedSituacao = computed({
 <template>
     <div>
         <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[80rem]" v-model:visible="aditivoService.cadastro.showModal" modal header="Cadastro de Aditivo">
-            <div class="grid gap-4 mb-2 sm:grid-cols-1 md:gap-2 md:grid-cols-2 lg:grid-cols-3 lg:py-4 lg:gap-8">
+            <div class="grid gap-4 mb-2 sm:grid-cols-1 md:gap-5 md:grid-cols-2 lg:grid-cols-3 lg:py-4 lg:gap-8">
                 <div class="px-2">
                     <div class="flex mb-1">
                         <Icon icon="bx:file" width="24" height="24" class="mr-2" />
@@ -72,7 +72,7 @@ const selectedSituacao = computed({
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedSituacao" :options="situacaoOpcoes" optionLabel="name"
-                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
+                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-7/12" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
