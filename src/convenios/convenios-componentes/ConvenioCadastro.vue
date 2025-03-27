@@ -48,30 +48,33 @@ const validarCampos = () => {
 };
 
 const cadastrarConvenio = async (obj) => {
-
     if (!validarCampos()) {
         alert('Por favor, preencha todos os campos obrigatórios.');
         return;
     }
 
     try {
-        const result = await convenioService.cadastrarConvenio(obj);
+        let result;
+        if (obj.id) {
+            result = await convenioService.atualizarConvenio(obj);
+        } else {
+            result = await convenioService.cadastrarConvenio(obj);
+        }
 
         if (result.success) {
             convenioService.cadastro.objeto = {};
             convenioService.cadastro.showModal = false;
-
             await convenioService.listarConvenios();
-
-            alert('Convênio cadastrado com sucesso!');
+            alert(obj.id ? 'Convênio atualizado com sucesso!' : 'Convênio cadastrado com sucesso!');
         } else {
-            alert('Houve um erro ao cadastrar o convênio. Tente novamente.');
+            alert('Houve um erro ao salvar o convênio. Tente novamente.');
         }
     } catch (error) {
-        console.error('Erro ao cadastrar o convênio:', error);
+        console.error('Erro ao salvar o convênio:', error);
         alert('Houve um erro inesperado. Tente novamente mais tarde.');
     }
 };
+
 
 </script>
 

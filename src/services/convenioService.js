@@ -47,6 +47,18 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
             }
         },
 
+        async atualizarConvenio(obj) {
+            try {
+                const response = await http.put(`/api/convenios/${obj.id}`, obj);
+                if (response.status === 200) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao atualizar o convênio:', error);
+            }
+        },
+
+
         async buscarPorId(_convenioId) {
             try {
                 const response = await http.get(`/api/convenios/${_convenioId}`)
