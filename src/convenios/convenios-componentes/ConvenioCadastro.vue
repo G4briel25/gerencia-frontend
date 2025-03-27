@@ -1,9 +1,10 @@
 <script setup>
 import convenioServiceImpl from '@/services/convenioService.js';
 import { Icon } from '@iconify/vue';
-import { Button, DatePicker, Dialog, InputNumber, InputText, Select } from 'primevue';
+import {Button, DatePicker, Dialog, InputNumber, InputText, Select, Toast, useToast} from 'primevue';
 import {computed, ref} from "vue";
 
+const toast = useToast();
 const convenioService = convenioServiceImpl();
 
 const situacaoOpcoes = ref([
@@ -49,7 +50,7 @@ const validarCampos = () => {
 
 const cadastrarConvenio = async (obj) => {
     if (!validarCampos()) {
-        alert('Por favor, preencha todos os campos obrigatórios.');
+        toast.add({ severity: 'error', summary: 'Erro', detail: 'Por favor, preencha todos os campos obrigatórios.', life: 3000 });
         return;
     }
 
@@ -65,13 +66,28 @@ const cadastrarConvenio = async (obj) => {
             convenioService.cadastro.objeto = {};
             convenioService.cadastro.showModal = false;
             await convenioService.listarConvenios();
-            alert(obj.id ? 'Convênio atualizado com sucesso!' : 'Convênio cadastrado com sucesso!');
+            toast.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: obj.id ? 'Convênio atualizado com sucesso!' : 'Convênio cadastrado com sucesso!',
+                life: 3000
+            });
         } else {
-            alert('Houve um erro ao salvar o convênio. Tente novamente.');
+            toast.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'Houve um erro ao salvar o convênio. Tente novamente.',
+                life: 3000
+            });
         }
     } catch (error) {
         console.error('Erro ao salvar o convênio:', error);
-        alert('Houve um erro inesperado. Tente novamente mais tarde.');
+        toast.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Houve um erro inesperado. Tente novamente mais tarde.',
+            life: 3000
+        });
     }
 };
 
@@ -80,6 +96,7 @@ const cadastrarConvenio = async (obj) => {
 
 <template>
     <div>
+        <Toast></Toast>
         <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[80rem]" v-model:visible="convenioService.cadastro.showModal" modal header="Cadastro de Convênio">
             <div class="grid gap-4 mb-2 sm:grid-cols-1 md:gap-2 md:grid-cols-2 lg:grid-cols-3 lg:py-4 lg:gap-8">
                 <div class="px-2">
