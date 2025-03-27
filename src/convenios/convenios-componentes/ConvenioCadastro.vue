@@ -39,6 +39,40 @@ const selectedTipoConvenio = computed({
     }
 });
 
+const validarCampos = () => {
+    const { proponente, convenente, responsaveis, objeto, numeroConvenio, numeroProcesso, valorTotal, situacaoDescricao, tipoDeConvenio, dataInicio } = convenioService.cadastro.objeto;
+    if (!proponente || !convenente || !responsaveis || !objeto || !numeroConvenio || !numeroProcesso || !valorTotal || !situacaoDescricao || !tipoDeConvenio || !dataInicio) {
+        return false;
+    }
+    return true;
+};
+
+const cadastrarConvenio = async (obj) => {
+
+    if (!validarCampos()) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+    }
+
+    try {
+        const result = await convenioService.cadastrarConvenio(obj);
+
+        if (result.success) {
+            convenioService.cadastro.objeto = {};
+            convenioService.cadastro.showModal = false;
+
+            await convenioService.listarConvenios();
+
+            alert('Convênio cadastrado com sucesso!');
+        } else {
+            alert('Houve um erro ao cadastrar o convênio. Tente novamente.');
+        }
+    } catch (error) {
+        console.error('Erro ao cadastrar o convênio:', error);
+        alert('Houve um erro inesperado. Tente novamente mais tarde.');
+    }
+};
+
 </script>
 
 <template>
@@ -179,7 +213,7 @@ const selectedTipoConvenio = computed({
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                     @click="convenioService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="visible = false"></Button>
+                <Button severity="info" type="button" label="Salvar" @click="cadastrarConvenio(convenioService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>
