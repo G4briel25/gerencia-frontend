@@ -37,6 +37,28 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
                 console.log('Erro ao editar convênio:', error);
             }
         },
+
+        async cadastrarLancamento(_convenioId, obj) {
+            try {
+                const response = await http.post(`/api/convenios/${_convenioId}/lancamentos`, obj);
+                if (response.status === 201) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao cadastrar o lançamento:', error)
+            }
+        },
+
+        async atualizarLancamento(obj) {
+            try {
+                const response = await http.put(`/api/convenios/${obj.convenioId}/lancamentos/${obj.id}`, obj);
+                if (response.status === 200) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao atualizar o lançamento:', error);
+            }
+        }
     }
 });
 

@@ -21,7 +21,7 @@ const aditivoServiceImpl = defineStore('AditivoServiceImpl', {
     }),
 
     actions: {
-        async listarAditivo(_convenioId) {
+        async listarAditivoPorId(_convenioId) {
             try {
                 const response = await http.get(`api/convenios/${_convenioId}/aditivos/listar`);
                 this.content = response.data;
@@ -39,6 +39,28 @@ const aditivoServiceImpl = defineStore('AditivoServiceImpl', {
                 console.log('Erro ao editar convênio:', error);
             }
         },
+
+        async cadastrarAditivo(_convenioId, obj) {
+            try {
+                const response = await http.post(`/api/convenios/${_convenioId}/aditivos`, obj);
+                if (response.status === 201) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao cadastrar o aditivo:', error);
+            }
+        },
+
+        async atualizarAditivo(obj) {
+            try {
+                const response = await http.put(`/api/convenios/${obj.convenioId}/aditivos/${obj.id}`, obj);
+                if (response.status === 200) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao atualizar o aditivo:', error);
+            }
+        }
     }
 });
 

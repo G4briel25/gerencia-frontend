@@ -73,12 +73,12 @@ const validarCampos = () => {
     return isValid;
 };
 
-const cadastrarConvenio = async (obj) => {
+const novoConvenio = async (obj) => {
     // Limpar os erros ao tentar submeter novamente
     Object.keys(invalidFields.value).forEach(key => invalidFields.value[key] = false);
 
     if (!validarCampos()) {
-        toast.add({ severity: 'error', summary: 'Erro', detail: 'Por favor, preencha todos os campos obrigatórios.', life: 3000 });
+        toast.add({ severity: 'error', summary: 'Erro', detail: 'Por favor, preencha todos os campos obrigatórios.', life: 5000 });
         return;
     }
 
@@ -98,14 +98,14 @@ const cadastrarConvenio = async (obj) => {
                 severity: 'success',
                 summary: 'Sucesso',
                 detail: obj.id ? 'Convênio atualizado com sucesso!' : 'Convênio cadastrado com sucesso!',
-                life: 3000
+                life: 5000
             });
         } else {
             toast.add({
                 severity: 'error',
                 summary: 'Erro',
                 detail: 'Houve um erro ao salvar o convênio. Tente novamente.',
-                life: 3000
+                life: 5000
             });
         }
     } catch (error) {
@@ -114,7 +114,7 @@ const cadastrarConvenio = async (obj) => {
             severity: 'error',
             summary: 'Erro',
             detail: 'Houve um erro inesperado. Tente novamente mais tarde.',
-            life: 3000
+            life: 5000
         });
     }
 };
@@ -263,7 +263,7 @@ const cadastrarConvenio = async (obj) => {
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                     @click="convenioService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="cadastrarConvenio(convenioService.cadastro.objeto)"></Button>
+                <Button severity="info" type="button" label="Salvar" @click="novoConvenio(convenioService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>

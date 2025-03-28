@@ -1,14 +1,78 @@
 <script setup>
 import {Icon} from '@iconify/vue';
-import {Button, DatePicker, Dialog, InputNumber, InputText} from 'primevue';
+import {Button, DatePicker, Dialog, InputNumber, InputText, Toast, useToast} from 'primevue';
 import lancamentoConvenioServiceImpl from "@/services/lancamentoConvenioService.js";
+import convenioServiceImpl from "@/services/convenioService.js";
+import {useRoute} from "vue-router";
+import {ref} from "vue";
 
+const toast = useToast();
+const route = useRoute();
 const lancamentoService = lancamentoConvenioServiceImpl();
+const convenioService = convenioServiceImpl();
 
+const invalidFields = ref({
+    dataRepasse: null,
+    exercicio: null,
+    valorPago: null,
+});
+
+const validarCampos = () => {
+    let isValid = true;
+
+    const { dataRepasse, exercicio, valorPago } = lancamentoService.cadastro.objeto;
+
+    // Validar campos obrigatórios e atualizar o estado dos campos inválidos
+    if (!dataRepasse) { invalidFields.value.dataRepasse = true; isValid = false; }
+    if (!exercicio) { invalidFields.value.exercicio = true; isValid = false; }
+    if (!valorPago) { invalidFields.value.valorPago = true; isValid = false; }
+
+    return isValid;
+};
+
+const novoLancamento = async (obj) => {
+    // Limpar os erros ao tentar submeter novamente
+    Object.keys(invalidFields.value).forEach(key => invalidFields.value[key] = false);
+
+    if (!validarCampos()) {
+        toast.add({ severity: 'error', summary: 'Erro', detail: 'Por favor, preencha todos os campos obrigatórios.', life: 5000 });
+        return;
+    }
+
+    try {
+        let result;
+        if(obj.id) {
+            result = await lancamentoService.atualizarLancamento(obj);
+        } else {
+            result = await lancamentoService.cadastrarLancamento(convenioService.convenioDetalhado.id, obj);
+        }
+
+        if (result.success) {
+            await convenioService.listarConvenioPorId(route.params.id);
+            lancamentoService.cadastro.showModal = false;
+            toast.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: obj.id ? 'Lançamento atualizado com sucesso!' : 'Lançamento cadastrado com sucesso!',
+                life: 5000
+            });
+        } else {
+            toast.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'Houve um erro ao salvar o lançamento. Tente novamente.',
+                life: 5000
+            });
+        }
+    } catch (error) {
+        console.log(error)
+    }
+};
 </script>
 
 <template>
     <div>
+        <Toast></Toast>
         <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[45rem]" v-model:visible="lancamentoService.cadastro.showModal" modal header="Cadastro de Lançamento do Convênio">
             <div class="grid gap-8 mb-2 grid-cols-1 md:grid-cols-2 lg:py-4">
                 <div class="px-2">
@@ -19,7 +83,7 @@ const lancamentoService = lancamentoConvenioServiceImpl();
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="lancamentoService.cadastro.objeto.exercicio" class="w-52" />
+                    <InputText v-model="lancamentoService.cadastro.objeto.exercicio" :invalid="invalidFields.exercicio" class="w-52" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -31,6 +95,7 @@ const lancamentoService = lancamentoConvenioServiceImpl();
                     </div>
                     <InputNumber
                         v-model="lancamentoService.cadastro.objeto.valorPago"
+                        :invalid="invalidFields.valorPago"
                         class="w-52"
                         prefix="R$ "
                         locale="pt-BR"
@@ -47,6 +112,7 @@ const lancamentoService = lancamentoConvenioServiceImpl();
                     </div>
                     <DatePicker
                         v-model="lancamentoService.cadastro.objeto.dataRepasse"
+                        :invalid="invalidFields.dataRepasse"
                         dateFormat="dd/mm/yy"
                         locale="pt-BR"
                         inputId="data-repasse"
@@ -59,7 +125,7 @@ const lancamentoService = lancamentoConvenioServiceImpl();
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                         @click="lancamentoService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="visible = false"></Button>
+                <Button severity="info" type="button" label="Salvar" @click="novoLancamento(lancamentoService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>

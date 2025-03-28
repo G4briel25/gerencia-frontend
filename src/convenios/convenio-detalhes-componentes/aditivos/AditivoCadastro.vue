@@ -1,10 +1,15 @@
 <script setup>
 import {Icon} from '@iconify/vue';
-import {Button, DatePicker, Dialog, InputNumber, InputText, Select} from 'primevue';
+import {Button, DatePicker, Dialog, InputNumber, InputText, Select, useToast, Toast} from 'primevue';
 import aditivoServiceImpl from "@/services/aditivoService.js";
 import {computed, ref} from "vue";
+import convenioServiceImpl from "@/services/convenioService.js";
+import {useRoute} from "vue-router";
 
+const toast = useToast();
+const convenioService = convenioServiceImpl();
 const aditivoService = aditivoServiceImpl();
+const route = useRoute();
 
 const situacaoOpcoes = ref([
     { name: 'Em andamento' },
@@ -21,11 +26,76 @@ const selectedSituacao = computed({
         aditivoService.cadastro.objeto.situacaoDescricaoAditivo = newValue.name;
     }
 });
+
+const invalidFields = ref({
+    numeroAditivo: null,
+    responsaveis: null,
+    dataInicio: null,
+    dataFim: null,
+    valorTotalAditivo: null,
+    situacaoDescricaoAditivo: null
+});
+
+const validarCampos = () => {
+    let isValid = true;
+
+    const { numeroAditivo, responsaveis, dataInicio, dataFim, valorTotalAditivo, situacaoDescricaoAditivo } = aditivoService.cadastro.objeto;
+
+    // Validar campos obrigatórios e atualizar o estado dos campos inválidos
+    if (!numeroAditivo) { invalidFields.value.numeroAditivo = true; isValid = false; }
+    if (!responsaveis) { invalidFields.value.responsaveis = true; isValid = false; }
+    if (!dataInicio) { invalidFields.value.dataInicio = true; isValid = false; }
+    if (!dataFim) { invalidFields.value.dataFim = true; isValid = false; }
+    if (!valorTotalAditivo) { invalidFields.value.valorTotalAditivo = true; isValid = false; }
+    if (!situacaoDescricaoAditivo) { invalidFields.value.situacaoDescricaoAditivo = true; isValid = false; }
+
+    return isValid;
+};
+
+const novoAditivo = async (obj) => {
+    // Limpar os erros ao tentar submeter novamente
+    Object.keys(invalidFields.value).forEach(key => invalidFields.value[key] = false);
+
+    if (!validarCampos()) {
+        toast.add({ severity: 'error', summary: 'Erro', detail: 'Por favor, preencha todos os campos obrigatórios.', life: 5000 });
+        return;
+    }
+
+    try {
+        let result;
+        if(obj.id) {
+            result = await aditivoService.atualizarAditivo(obj);
+        } else {
+            result = await aditivoService.cadastrarAditivo(convenioService.convenioDetalhado.id, obj);
+        }
+
+        if (result.success) {
+            await convenioService.listarConvenioPorId(route.params.id);
+            aditivoService.cadastro.showModal = false;
+            toast.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: obj.id ? 'Aditivo atualizado com sucesso!' : 'Aditivo cadastrado com sucesso!',
+                life: 5000
+            });
+        } else {
+            toast.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'Houve um erro ao salvar o aditivo. Tente novamente.',
+                life: 5000
+            });
+        }
+    } catch (error) {
+        console.log(error)
+    }
+};
 </script>
 
 <template>
     <div>
-        <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[80rem]" v-model:visible="aditivoService.cadastro.showModal" modal header="Cadastro de Aditivo">
+        <Toast></Toast>
+        <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[80rem]" v-model:visible="aditivoService.cadastro.showModal" modal header="Cadastro de Aditivo do Convênio">
             <div class="grid gap-4 mb-2 sm:grid-cols-1 md:gap-5 md:grid-cols-2 lg:grid-cols-3 lg:py-4 lg:gap-8">
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -35,7 +105,7 @@ const selectedSituacao = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="aditivoService.cadastro.objeto.numeroAditivo" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="aditivoService.cadastro.objeto.numeroAditivo" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.numeroAditivo" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -45,7 +115,7 @@ const selectedSituacao = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="aditivoService.cadastro.objeto.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="aditivoService.cadastro.objeto.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.responsaveis" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -57,6 +127,7 @@ const selectedSituacao = computed({
                     </div>
                     <InputNumber
                         v-model="aditivoService.cadastro.objeto.valorTotalAditivo"
+                        :invalid="invalidFields.valorTotalAditivo"
                         class="w-56 md:w-10/12 lg:w-11/12"
                         prefix="R$ "
                         locale="pt-BR"
@@ -72,7 +143,8 @@ const selectedSituacao = computed({
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedSituacao" :options="situacaoOpcoes" optionLabel="name"
-                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-7/12" />
+                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-7/12"
+                            :invalid="invalidFields.situacaoDescricaoAditivo"/>
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -84,9 +156,10 @@ const selectedSituacao = computed({
                     </div>
                     <DatePicker
                         v-model="aditivoService.cadastro.objeto.dataInicio"
+                        :invalid="invalidFields.dataInicio"
                         dateFormat="dd/mm/yy"
                         locale="pt-BR"
-                        inputId="data-repasse"
+                        inputId="data-inicio"
                     />
                 </div>
                 <div class="px-2">
@@ -95,13 +168,12 @@ const selectedSituacao = computed({
                         <label class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-200">
                             Data Fim
                         </label>
-                        <span class="text-red-500 ml-2">*</span>
                     </div>
                     <DatePicker
                         v-model="aditivoService.cadastro.objeto.dataFim"
                         dateFormat="dd/mm/yy"
                         locale="pt-BR"
-                        inputId="data-repasse"
+                        inputId="data-fim"
                     />
                 </div>
             </div>
@@ -111,7 +183,7 @@ const selectedSituacao = computed({
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                         @click="aditivoService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="visible = false"></Button>
+                <Button severity="info" type="button" label="Salvar" @click="novoAditivo(aditivoService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>
