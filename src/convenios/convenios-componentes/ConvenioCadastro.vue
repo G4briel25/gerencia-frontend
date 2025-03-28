@@ -40,15 +40,43 @@ const selectedTipoConvenio = computed({
     }
 });
 
+const invalidFields = ref({
+    proponente: false,
+    convenente: false,
+    responsaveis: false,
+    objeto: false,
+    numeroConvenio: false,
+    numeroProcesso: false,
+    valorTotal: false,
+    situacaoDescricao: false,
+    tipoDeConvenio: false,
+    dataInicio: false
+});
+
 const validarCampos = () => {
+    let isValid = true;
+
     const { proponente, convenente, responsaveis, objeto, numeroConvenio, numeroProcesso, valorTotal, situacaoDescricao, tipoDeConvenio, dataInicio } = convenioService.cadastro.objeto;
-    if (!proponente || !convenente || !responsaveis || !objeto || !numeroConvenio || !numeroProcesso || !valorTotal || !situacaoDescricao || !tipoDeConvenio || !dataInicio) {
-        return false;
-    }
-    return true;
+
+    // Validar campos obrigatórios e atualizar o estado dos campos inválidos
+    if (!proponente) { invalidFields.value.proponente = true; isValid = false; }
+    if (!convenente) { invalidFields.value.convenente = true; isValid = false; }
+    if (!responsaveis) { invalidFields.value.responsaveis = true; isValid = false; }
+    if (!objeto) { invalidFields.value.objeto = true; isValid = false; }
+    if (!numeroConvenio) { invalidFields.value.numeroConvenio = true; isValid = false; }
+    if (!numeroProcesso) { invalidFields.value.numeroProcesso = true; isValid = false; }
+    if (!valorTotal) { invalidFields.value.valorTotal = true; isValid = false; }
+    if (!situacaoDescricao) { invalidFields.value.situacaoDescricao = true; isValid = false; }
+    if (!tipoDeConvenio) { invalidFields.value.tipoDeConvenio = true; isValid = false; }
+    if (!dataInicio) { invalidFields.value.dataInicio = true; isValid = false; }
+
+    return isValid;
 };
 
 const cadastrarConvenio = async (obj) => {
+    // Limpar os erros ao tentar submeter novamente
+    Object.keys(invalidFields.value).forEach(key => invalidFields.value[key] = false);
+
     if (!validarCampos()) {
         toast.add({ severity: 'error', summary: 'Erro', detail: 'Por favor, preencha todos os campos obrigatórios.', life: 3000 });
         return;
@@ -107,7 +135,7 @@ const cadastrarConvenio = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.proponente" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.proponente" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.proponente" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -117,7 +145,7 @@ const cadastrarConvenio = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.convenente" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.convenente" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.convenente" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -127,7 +155,7 @@ const cadastrarConvenio = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.responsaveis" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -137,7 +165,7 @@ const cadastrarConvenio = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.objeto" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.objeto" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.objeto" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -147,7 +175,7 @@ const cadastrarConvenio = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.numeroConvenio" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.numeroConvenio" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.numeroConvenio" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -157,7 +185,7 @@ const cadastrarConvenio = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.numeroProcesso" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.numeroProcesso" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.numeroProcesso" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -173,6 +201,7 @@ const cadastrarConvenio = async (obj) => {
                         prefix="R$ "
                         locale="pt-BR"
                         :minFractionDigits="2"
+                        :invalid="invalidFields.valorTotal"
                     />
                 </div>
                 <div class="px-2">
@@ -184,7 +213,7 @@ const cadastrarConvenio = async (obj) => {
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedSituacao" :options="situacaoOpcoes" optionLabel="name"
-                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
+                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.situacaoDescricao" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -195,7 +224,7 @@ const cadastrarConvenio = async (obj) => {
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedTipoConvenio" :options="tipoConvenio" optionLabel="name" placeholder="Selecione o tipo"
-                        class="w-56 md:w-10/12 lg:w-11/12" />
+                        class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.tipoDeConvenio" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -205,11 +234,12 @@ const cadastrarConvenio = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <DatePicker 
+                    <DatePicker
                         v-model="convenioService.cadastro.objeto.dataInicio"
                         dateFormat="dd/mm/yy"
                         locale="pt-BR"
                         inputId="data-inicio"
+                        :invalid="invalidFields.dataInicio"
                     />
                 </div>
                 <div class="px-2">
