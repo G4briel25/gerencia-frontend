@@ -1,8 +1,7 @@
 <script setup>
 import {defineProps, onMounted} from 'vue';
-import Panel from 'primevue/panel';
 import ConvenioDetalhesDataTable from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesDataTable.vue'
-import ConvenioDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhes.vue'
+import ConvenioPanelDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioPanelDetalhes.vue'
 import ConvenioDetalhesCabecalho from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesCabecalho.vue';
 import convenioServiceImpl from '@/services/convenioService';
 import lancamentoConvenioServiceImpl from "@/services/lancamentoConvenioService.js";
@@ -36,11 +35,9 @@ onMounted( async () => {
         ></ConvenioDetalhesCabecalho>
         <br>
         <main>
-            <Panel header="Filtros" class="shadow-md">
-                <br>
-                <ConvenioDetalhes
-                    :convenioService="convenioService.convenioDetalhado"></ConvenioDetalhes>
-            </Panel>
+            <ConvenioPanelDetalhes
+                :convenioService="convenioService.convenioDetalhado"
+            ></ConvenioPanelDetalhes>
             <br><br>
             <ConvenioDetalhesDataTable
                 :convenioService="convenioService.convenioDetalhado"

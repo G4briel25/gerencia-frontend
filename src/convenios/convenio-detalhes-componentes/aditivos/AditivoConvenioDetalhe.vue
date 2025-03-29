@@ -1,43 +1,35 @@
 <script setup>
 
-import Panel from "primevue/panel";
-import AditivoDetalhesCabecalho from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhesCabecalho.vue";
-import AditivoDetalhesDataTable from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhesDataTable.vue";
-import aditivoServiceImpl from "@/services/aditivoConvenioService.js";
+import AditivoConvenioDetalhesCabecalho
+    from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhesCabecalho.vue";
 import {defineProps, onMounted} from "vue";
 import {useRoute} from "vue-router";
-import convenioServiceImpl from "@/services/convenioService.js";
+import aditivoConvenoServiceImpl from "@/services/aditivoConvenioService.js";
+import AditivoConvenioPanelDetalhes
+    from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioPanelDetalhes.vue";
+import AditivoConvenioDetalhesDataTable
+    from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhesDataTable.vue";
 
+const aditivoConvenioService = aditivoConvenoServiceImpl();
 const route = useRoute();
 const props = defineProps({
     id: String,
 });
 
-const aditivoService = aditivoServiceImpl();
-const convenioService = convenioServiceImpl()
-
-// const convenioId = route.params.convenioId;
-
-onMounted( async () => {
-    await convenioService.listarConvenioPorId(props.id);
-    console.log(aditivoService.content)
+onMounted( async ()=> {
+    await aditivoConvenioService.buscarPorIdDetalhar(route.params.convenioId, route.params.aditivoId);
 });
 
 </script>
 
 <template>
     <div class="py-2 px-5">
-        <pre>{{ aditivoService.content }}</pre>
-        <pre>{{ convenioiService.convenioDetalhado.aditivos }}</pre>
-        <AditivoDetalhesCabecalho :aditivoId="props.id"></AditivoDetalhesCabecalho>
+        <AditivoConvenioDetalhesCabecalho :aditivoId="props.id"></AditivoConvenioDetalhesCabecalho>
         <br>
         <main>
-            <Panel header="Filtros" class="shadow-md">
-                <br>
-<!--                <AditivoDetalhe :aditivoService="aditivoService.content"></AditivoDetalhe>-->
-            </Panel>
+            <AditivoConvenioPanelDetalhes :aditivoConvenioService="aditivoConvenioService.content"></AditivoConvenioPanelDetalhes>
             <br><br>
-<!--            <AditivoDetalhesDataTable :aditivoService="aditivoService.content"></AditivoDetalhesDataTable>-->
+            <AditivoConvenioDetalhesDataTable :aditivoConvenioService="aditivoConvenioService.content"></AditivoConvenioDetalhesDataTable>
         </main>
     </div>
 </template>

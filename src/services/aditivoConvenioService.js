@@ -40,6 +40,15 @@ const aditivoConvenoServiceImpl = defineStore('AditivoConvenoServiceImpl', {
             }
         },
 
+        async buscarPorIdDetalhar(_convenioId, _aditivoId) {
+            try {
+                const response = await http.get(`api/convenios/${_convenioId}/aditivos/${_aditivoId}`)
+                this.content = response.data;
+            } catch (error) {
+                console.log('Erro ao editar convênio:', error);
+            }
+        },
+
         async cadastrarAditivo(_convenioId, obj) {
             try {
                 const response = await http.post(`/api/convenios/${_convenioId}/aditivos`, obj);

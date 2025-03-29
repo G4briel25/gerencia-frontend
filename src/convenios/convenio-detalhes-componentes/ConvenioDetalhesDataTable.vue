@@ -38,10 +38,7 @@ const editarAditivo = async (_convenioId, _aditivoId) => {
 };
 
 const detalhar = async (_convenioId, _aditivoId) => {
-    // console.log('convenioId:', _convenioId)
-    // console.log('aditivoId:', _aditivoId)
-    // // await aditivoService.buscarPorId(_convenioId, _aditivoId);
-    // await router.push({name: 'aditivo-detalhe', params: {convenioId: _convenioId, aditivoId: _aditivoId}});
+    await router.push({name: 'aditivo-detalhe', params: {convenioId: _convenioId, aditivoId: _aditivoId}});
 };
 
 
