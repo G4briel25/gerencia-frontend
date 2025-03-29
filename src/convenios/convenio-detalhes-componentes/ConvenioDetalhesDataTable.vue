@@ -7,14 +7,14 @@ import TabList from 'primevue/tablist';
 import Tab from 'primevue/tab';
 import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
+import Message from 'primevue/message';
 import {useConfirm, useToast} from 'primevue';
 
 import {defineProps, reactive, ref} from "vue";
 import {Icon} from "@iconify/vue";
 import funcoes from '@/utils/funcoes.js';
 import lancamentoConvenioServiceImpl from '@/services/lancamentoConvenioService.js';
-import LancamentoConvenioCadastro
-    from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoConvenioCadastro.vue";
+import LancamentoConvenioCadastro from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoConvenioCadastro.vue";
 import AditivoCadastro from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioCadastro.vue";
 import aditivoServiceImpl from "@/services/aditivoConvenioService.js";
 import {useRouter} from "vue-router";
@@ -126,7 +126,7 @@ const excluirLancamento = (_convenioId, _lancamentoId) => {
         </TabList>
         <TabPanels>
             <TabPanel value="0">
-                <DataTable :value="lancamentoConvenioService.content" showGridlines>
+                <DataTable v-if="lancamentoConvenioService.content.length" :value="lancamentoConvenioService.content" showGridlines>
                     <Column field="id" header="Id"></Column>
                     <Column field="exercicio" header="Exercício"></Column>
                     <Column field="dataRepasse" header="Data de Repasse">
@@ -156,9 +156,10 @@ const excluirLancamento = (_convenioId, _lancamentoId) => {
                         </template>
                     </Column>
                 </DataTable>
+                <Message v-else severity="warn">Não foram encontrados nenhum registro.</Message>
             </TabPanel>
             <TabPanel value="1">
-                <DataTable :value="aditivoConvenioService.content" showGridlines>
+                <DataTable v-if="aditivoConvenioService.content.length" :value="aditivoConvenioService.content" showGridlines>
                     <Column field="id" header="Id"></Column>
                     <Column field="numeroAditivo" header="Aditivo"></Column>
                     <Column field="responsaveis" header="Responsáveis"></Column>
@@ -194,6 +195,7 @@ const excluirLancamento = (_convenioId, _lancamentoId) => {
                         </template>
                     </Column>
                 </DataTable>
+                <Message v-else severity="warn">Não foram encontrados nenhum registro.</Message>
             </TabPanel>
         </TabPanels>
     </Tabs>

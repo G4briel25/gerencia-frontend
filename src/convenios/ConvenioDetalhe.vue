@@ -29,12 +29,17 @@ onMounted( async () => {
 
 <template>
     <div class="py-2 px-5">
-        <ConvenioDetalhesCabecalho :convenioId="props.id"></ConvenioDetalhesCabecalho>
+        <ConvenioDetalhesCabecalho
+            :convenioId="props.id"
+            :listaLancamentos="lancamentoConvenioService.content"
+            :listaAditivos="aditivoConvenioService.content"
+        ></ConvenioDetalhesCabecalho>
         <br>
         <main>
             <Panel header="Filtros" class="shadow-md">
                 <br>
-                <ConvenioDetalhes :convenioService="convenioService.convenioDetalhado"></ConvenioDetalhes>
+                <ConvenioDetalhes
+                    :convenioService="convenioService.convenioDetalhado"></ConvenioDetalhes>
             </Panel>
             <br><br>
             <ConvenioDetalhesDataTable
