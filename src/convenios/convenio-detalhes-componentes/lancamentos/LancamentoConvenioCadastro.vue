@@ -48,7 +48,7 @@ const novoLancamento = async (obj) => {
         }
 
         if (result.success) {
-            await convenioService.listarConvenioPorId(route.params.id);
+            await lancamentoService.listarLancamento(route.params.id);
             lancamentoService.cadastro.showModal = false;
             toast.add({
                 severity: 'success',

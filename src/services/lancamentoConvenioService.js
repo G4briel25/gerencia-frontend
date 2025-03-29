@@ -21,7 +21,7 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
     actions: {
         async listarLancamento(_convenioId) {
             try {
-                const response = await http.get(`api/convenios/${_convenioId}/lancamentos/listar`);
+                const response = await http.get(`api/convenios/${_convenioId}/lancamentos/listar-lancamentos`);
                 this.content = response.data;
             } catch (error) {
                 console.error('Erro ao listar convênios:', error);
@@ -57,6 +57,18 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
                 }
             } catch (error) {
                 console.log('Erro ao atualizar o lançamento:', error);
+            }
+        },
+
+        async excluirLancamento(_convenioId, _lancamentoId) {
+            try {
+                const response = await http.delete(`/api/convenios/${_convenioId}/lancamentos/${_lancamentoId}`);
+                if (response.status === 200) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao excluir o lançamento:', error);
+                return { success: false, message: 'Erro ao excluir lançamento' };
             }
         }
     }

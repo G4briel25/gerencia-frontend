@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import http from "@/services/http.js";
 
-const aditivoServiceImpl = defineStore('AditivoServiceImpl', {
+const aditivoConvenoServiceImpl = defineStore('AditivoConvenoServiceImpl', {
     state: () => ({
         content: [],
         objetoPadrao: {
@@ -21,9 +21,9 @@ const aditivoServiceImpl = defineStore('AditivoServiceImpl', {
     }),
 
     actions: {
-        async listarAditivoPorId(_convenioId) {
+        async listarAditivo(_convenioId) {
             try {
-                const response = await http.get(`api/convenios/${_convenioId}/aditivos/listar`);
+                const response = await http.get(`api/convenios/${_convenioId}/aditivos/listar-aditivos`);
                 this.content = response.data;
             } catch (error) {
                 console.error('Erro ao listar convênios:', error);
@@ -64,4 +64,4 @@ const aditivoServiceImpl = defineStore('AditivoServiceImpl', {
     }
 });
 
-export default aditivoServiceImpl;
+export default aditivoConvenoServiceImpl;
