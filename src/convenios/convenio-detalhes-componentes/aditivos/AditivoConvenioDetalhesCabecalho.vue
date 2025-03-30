@@ -28,7 +28,7 @@ const excluirAditivo = async (_convenioId, _aditivoId) => {
             const result = await props.aditivoConvenioService.excluirAditivo(_convenioId, _aditivoId);
             if (result.success) {
                 toast.add({severity: 'info', summary: 'Confirmado', detail: 'Aditivo excluído', life: 5000});
-                await router.push({name: 'convenio-detalhe', params: {id: _convenioId}});
+                await router.push({name: 'convenio-detalhe', params: {convenioId: _convenioId}});
             } else {
                 toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
             }

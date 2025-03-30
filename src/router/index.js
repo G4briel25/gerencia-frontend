@@ -35,7 +35,7 @@ const routes = [
                 }
             },
             {
-                path: "convenio/:id",
+                path: "convenio/:convenioId",
                 name: "convenio-detalhe",
                 component: () => import("@/convenios/ConvenioDetalhe.vue"),
                 props: true,

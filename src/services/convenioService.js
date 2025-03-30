@@ -75,6 +75,18 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
             } catch (error) {
                 console.log('Erro ao listar convênio por id:', error);                
             }
+        },
+
+        async excluirCovenio(_convenioId) {
+            try {
+                const response = await http.delete(`/api/convenios/${_convenioId}`);
+                if (response.status === 200) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao excluir o convênio:', error);
+                return { success: false, message: 'Erro ao excluir convênio' };
+            }
         }
     }
 });

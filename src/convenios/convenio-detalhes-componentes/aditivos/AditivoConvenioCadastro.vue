@@ -69,7 +69,7 @@ const novoAditivo = async (obj) => {
         }
 
         if (result.success) {
-            await aditivoConvenioService.listarAditivo(route.params.id);
+            await aditivoConvenioService.listarAditivo(route.params.convenioId);
             aditivoConvenioService.cadastro.showModal = false;
             toast.add({
                 severity: 'success',

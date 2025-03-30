@@ -1,11 +1,42 @@
 <script setup>
 import {Icon} from '@iconify/vue';
 import {computed, defineProps} from 'vue';
+import {useConfirm, useToast} from "primevue";
+import {useRouter} from "vue-router";
 
-const props = defineProps(['convenioId', 'listaLancamentos', 'listaAditivos']);
+const router = useRouter();
+const props = defineProps(['convenioService', 'listaLancamentos', 'listaAditivos']);
+const confirm = useConfirm();
+const toast = useToast();
 
-const excluirConvenio = (convenioId) => {
-    console.log(convenioId);
+const excluirConvenio = (_convenioId) => {
+    confirm.require({
+        message: 'Você deseja excluir este convênio?',
+        header: 'Zona de Perigo',
+        icon: 'pi pi-info-circle',
+        rejectLabel: 'Cancelar',
+        rejectProps: {
+            label: 'Cancelar',
+            severity: 'secondary',
+            outlined: true
+        },
+        acceptProps: {
+            label: 'Excluir',
+            severity: 'danger'
+        },
+        accept: async () => {
+            const result = await props.convenioService.excluirCovenio(_convenioId);
+            if (result.success) {
+                toast.add({severity: 'info', summary: 'Confirmado', detail: 'Convênio excluído', life: 5000});
+                await router.push({name: 'convenio'});
+            } else {
+                toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
+            }
+        },
+        reject: () => {
+            toast.add({severity: 'error', summary: 'Rejeitado', detail: 'Você rejeitou a exclusão', life: 5000});
+        }
+    });
 };
 
 const isValid = computed(() => {
@@ -24,7 +55,7 @@ const isValid = computed(() => {
                 </div>
                 <button
                     :disabled="isValid"
-                    @click="excluirConvenio(convenioId)"
+                    @click="excluirConvenio(props.convenioService.convenioDetalhado.id)"
                     v-tooltip.left="isValid ? 'Para excluir este convênio, deve limpar todos os lançamentos e aditivos' : 'Excluir Convênio'"
                     class="p-2 gap-0 border border-transparent rounded-md shadow-sm
                         text-white bg-red-500 hover:bg-red-600

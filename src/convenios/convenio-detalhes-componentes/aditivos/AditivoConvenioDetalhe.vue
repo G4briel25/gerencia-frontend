@@ -3,7 +3,6 @@
 import AditivoConvenioDetalhesCabecalho
     from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhesCabecalho.vue";
 import {onMounted} from "vue";
-import {useRoute} from "vue-router";
 import AditivoConvenioPanelDetalhes
     from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioPanelDetalhes.vue";
 import AditivoConvenioDetalhesDataTable
@@ -14,11 +13,12 @@ import ConfirmDialog from "primevue/confirmdialog";
 
 const aditivoConvenioService = aditivoConvenoServiceImpl();
 const lancamentoAditivoService = lancamentoAditivoServiceImpl();
-const route = useRoute();
+
+const props = defineProps(['convenioId', 'aditivoId']);
 
 onMounted( async ()=> {
-    await aditivoConvenioService.buscarPorIdDetalhar(route.params.convenioId, route.params.aditivoId);
-    await lancamentoAditivoService.listarLancamentoAditivo(route.params.convenioId, route.params.aditivoId);
+    await aditivoConvenioService.buscarPorIdDetalhar(props.convenioId, props.aditivoId);
+    await lancamentoAditivoService.listarLancamentoAditivo(props.convenioId, props.aditivoId);
 });
 
 </script>
