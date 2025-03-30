@@ -43,7 +43,7 @@ const detalhar = async (_convenioId, _aditivoId) => {
 
 
 const valor = ref('0');
-const cadastrar = async () => {
+const cadastrar = () => {
     if (valor.value === '0') {
         lancamentoConvenioService.cadastro.objeto = reactive(lancamentoConvenioService.objetoPadrao);
 

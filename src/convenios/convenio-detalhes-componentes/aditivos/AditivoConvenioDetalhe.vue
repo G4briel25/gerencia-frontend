@@ -32,7 +32,7 @@ onMounted( async ()=> {
         <main>
             <AditivoConvenioPanelDetalhes :aditivoConvenioService="aditivoConvenioService.content"></AditivoConvenioPanelDetalhes>
             <br><br>
-            <AditivoConvenioDetalhesDataTable :aditivoConvenioService="aditivoConvenioService.content"></AditivoConvenioDetalhesDataTable>
+            <AditivoConvenioDetalhesDataTable :listaLancamentoAditivo="aditivoConvenioService.content"></AditivoConvenioDetalhesDataTable>
         </main>
     </div>
 </template>

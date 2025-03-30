@@ -19,12 +19,13 @@ const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl',
     }),
 
     actions: {
-        async listarLancamentoAditivo(_convenioId) {
+        async listarLancamentoAditivo(_convenioId, _aditivoId) {
             try {
+                console.log(_convenioId, _aditivoId)
                 const response = await http.get(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos/listar-lancamentos-do-aditivo`);
                 this.content = response.data;
             } catch (error) {
-                console.error('Erro ao listar convênios:', error);
+                console.error('Erro ao listar convênios:', error.msg);
                 this.content = [];
             }
         },
@@ -51,7 +52,7 @@ const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl',
 
         async atualizarLancamento(obj) {
             try {
-                const response = await http.put(`/api/convenios/${obj.convenioId}/aditivos/${obj.aditivoId}/lancamento/${obj.id}`, obj);
+                const response = await http.put(`/api/convenios/${obj.convenioId}/aditivos/${obj.aditivoId}/lancamentos/${obj.id}`, obj);
                 if (response.status === 200) {
                     return { success: true };
                 }
