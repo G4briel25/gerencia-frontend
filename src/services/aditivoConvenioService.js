@@ -23,7 +23,7 @@ const aditivoConvenoServiceImpl = defineStore('AditivoConvenoServiceImpl', {
     actions: {
         async listarAditivo(_convenioId) {
             try {
-                const response = await http.get(`api/convenios/${_convenioId}/aditivos/listar-aditivos`);
+                const response = await http.get(`/api/convenios/${_convenioId}/aditivos/listar-aditivos`);
                 this.content = response.data;
             } catch (error) {
                 console.error('Erro ao listar convênios:', error);
@@ -33,7 +33,7 @@ const aditivoConvenoServiceImpl = defineStore('AditivoConvenoServiceImpl', {
 
         async buscarPorId(_convenioId, _aditivoId) {
             try {
-                const response = await http.get(`api/convenios/${_convenioId}/aditivos/${_aditivoId}`)
+                const response = await http.get(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}`)
                 this.cadastro.objeto = response.data;
             } catch (error) {
                 console.log('Erro ao editar convênio:', error);
@@ -42,7 +42,7 @@ const aditivoConvenoServiceImpl = defineStore('AditivoConvenoServiceImpl', {
 
         async buscarPorIdDetalhar(_convenioId, _aditivoId) {
             try {
-                const response = await http.get(`api/convenios/${_convenioId}/aditivos/${_aditivoId}`)
+                const response = await http.get(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}`)
                 this.content = response.data;
             } catch (error) {
                 console.log('Erro ao editar convênio:', error);

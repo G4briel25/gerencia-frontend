@@ -29,7 +29,7 @@ const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl',
             }
         },
 
-        async buscarPorId(_convenioId, _lancamentoId) {
+        async buscarPorId(_convenioId, _aditivoId, _lancamentoId) {
             try {
                 const response = await http.get(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos/${_lancamentoId}`);
                 this.cadastro.objeto = response.data;
@@ -38,7 +38,7 @@ const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl',
             }
         },
 
-        async cadastrarLancamento(_convenioId, obj) {
+        async cadastrarLancamento(_convenioId, _aditivoId, obj) {
             try {
                 const response = await http.post(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos`, obj);
                 if (response.status === 201) {
@@ -60,7 +60,7 @@ const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl',
             }
         },
 
-        async excluirLancamento(_convenioId, _lancamentoId) {
+        async excluirLancamento(_convenioId, _aditivoId, _lancamentoId) {
             try {
                 const response = await http.delete(`/api/convenios/{convenioId}/aditivos/{aditivoId}/lancamentos`);
                 if (response.status === 200) {

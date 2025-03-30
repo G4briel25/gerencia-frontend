@@ -21,7 +21,7 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
     actions: {
         async listarLancamento(_convenioId) {
             try {
-                const response = await http.get(`api/convenios/${_convenioId}/lancamentos/listar-lancamentos`);
+                const response = await http.get(`/api/convenios/${_convenioId}/lancamentos/listar-lancamentos`);
                 this.content = response.data;
             } catch (error) {
                 console.error('Erro ao listar convênios:', error);
