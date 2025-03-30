@@ -41,8 +41,8 @@ onMounted( async () => {
             <br><br>
             <ConvenioDetalhesDataTable
                 :convenioService="convenioService.convenioDetalhado"
-                :listaLancamentos="lancamentoConvenioService.content"
-                :listaAditivos="aditivoConvenioService.content"
+                :lancamentoConvenioService="lancamentoConvenioService"
+                :aditivoConvenioService="aditivoConvenioService"
             ></ConvenioDetalhesDataTable>
         </main>
     </div>
