@@ -2,14 +2,14 @@
 import {Icon} from '@iconify/vue';
 import {computed, defineProps} from 'vue';
 
-const props = defineProps(['aditivoId', 'aditivoConvenioService']);
+const props = defineProps(['aditivoId', 'aditivoConvenioService', 'listaLancamentoAditivo']);
 
 const excluirAditivo = (aditivoId) => {
     console.log(aditivoId)
 };
 
 const isValid = computed(() => {
-    return props.aditivoConvenioService.lancamento && props.aditivoConvenioService.lancamento.length > 0;
+    return props.listaLancamentoAditivo && props.listaLancamentoAditivo.length > 0;
 });
 
 </script>

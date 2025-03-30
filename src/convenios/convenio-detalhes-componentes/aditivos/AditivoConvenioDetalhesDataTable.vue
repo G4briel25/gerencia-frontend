@@ -5,42 +5,38 @@ import TabList from 'primevue/tablist';
 import Tab from 'primevue/tab';
 import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
-import {computed, defineProps, onMounted, reactive} from "vue";
+import {computed, defineProps, reactive} from "vue";
 import funcoes from '@/utils/funcoes.js';
 import {Icon} from "@iconify/vue";
 import Message from "primevue/message";
-import lancamentoAditivoServiceImpl from "@/services/lancamentoAditivoService.js";
-import {useRoute} from "vue-router";
 import LancamentoAditivoConvenioCadastro
     from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoAditivoConvenioCadastro.vue";
 import ConfirmDialog from "primevue/confirmdialog";
 
 const { formatarDataBr, formatarMoedaBr } = funcoes();
 
-const route = useRoute();
-const props = defineProps(['listaLancamentoAditivo']);
+const props = defineProps(['aditivoConvenioService', 'lancamentoAditivoService']);
 const confirm = useConfirm();
 const toast = useToast();
-const lancamentoAditivoService = lancamentoAditivoServiceImpl();
 
 const isValidDataTable = computed(() => {
-    return lancamentoAditivoService.content && lancamentoAditivoService.content.length > 0;
+    return props.lancamentoAditivoService.content && props.lancamentoAditivoService.content.length > 0;
 });
 
 const editarLancamento = async (_convenioId, _aditivoId, _lancamentoId) => {
     console.log(_convenioId, _aditivoId, _lancamentoId)
-    await lancamentoAditivoService.buscarPorId(_convenioId, _aditivoId, _lancamentoId);
-    lancamentoAditivoService.cadastro.showModal = true;
+    await props.lancamentoAditivoService.buscarPorId(_convenioId, _aditivoId, _lancamentoId);
+    props.lancamentoAditivoService.cadastro.showModal = true;
 };
 
 const cadastrar = () => {
-    lancamentoAditivoService.cadastro.objeto = reactive(lancamentoAditivoService.objetoPadrao);
+    props.lancamentoAditivoService.cadastro.objeto = reactive(props.lancamentoAditivoService.objetoPadrao);
 
     // limpa os campos
-    lancamentoAditivoService.cadastro.objeto.dataRepasse = null;
-    lancamentoAditivoService.cadastro.objeto.exercicio = null;
-    lancamentoAditivoService.cadastro.objeto.valorPago = null;
-    lancamentoAditivoService.cadastro.showModal = true;
+    props.lancamentoAditivoService.cadastro.objeto.dataRepasse = null;
+    props.lancamentoAditivoService.cadastro.objeto.exercicio = null;
+    props.lancamentoAditivoService.cadastro.objeto.valorPago = null;
+    props.lancamentoAditivoService.cadastro.showModal = true;
 };
 
 const excluirLancamento = async (_convenioId, _aditivoId, _lancamentoId) => {
@@ -59,10 +55,10 @@ const excluirLancamento = async (_convenioId, _aditivoId, _lancamentoId) => {
             severity: 'danger'
         },
         accept: async () => {
-            const result = await lancamentoAditivoService.excluirLancamento(_convenioId, _aditivoId, _lancamentoId);
+            const result = await props.lancamentoAditivoService.excluirLancamento(_convenioId, _aditivoId, _lancamentoId);
             if (result.success) {
                 toast.add({severity: 'info', summary: 'Confirmado', detail: 'Registro excluído', life: 5000});
-                await lancamentoAditivoService.listarLancamentoAditivo(_convenioId, _aditivoId);
+                await props.lancamentoAditivoService.listarLancamentoAditivo(_convenioId, _aditivoId);
             } else {
                 toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
             }
@@ -73,9 +69,6 @@ const excluirLancamento = async (_convenioId, _aditivoId, _lancamentoId) => {
     });
 };
 
-onMounted( async () => {
-    await lancamentoAditivoService.listarLancamentoAditivo(route.params.convenioId, route.params.aditivoId);
-});
 </script>
 
 <template>
@@ -118,10 +111,10 @@ onMounted( async () => {
                     <Column header="Ações" style="width: 8rem">
                         <template #body="slotProps">
                             <div class="flex gap-2">
-                                <button title="Editar" @click="editarLancamento(props.listaLancamentoAditivo.convenioId, props.listaLancamentoAditivo.id, slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
+                                <button title="Editar" @click="editarLancamento(props.aditivoConvenioService.convenioId, props.aditivoConvenioService.id, slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-blue-600 hover:text-blue-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-blue-400 dark:hover:text-blue-300 dark:hover:bg-gray-700">
                                     <Icon icon="mage:edit-pen" width="24" height="24" />
                                 </button>
-                                <button title="Excluir" @click="excluirLancamento(props.listaLancamentoAditivo.convenioId, props.listaLancamentoAditivo.id, slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-red-600 hover:text-red-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-gray-700">
+                                <button title="Excluir" @click="excluirLancamento(props.aditivoConvenioService.convenioId, props.aditivoConvenioService.id, slotProps.data.id)" class="bg-gray-100 rounded-full p-2 text-red-600 hover:text-red-800 hover:bg-slate-200 transition duration-200 ease-in-out dark:bg-gray-800 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-gray-700">
                                     <Icon icon="iconamoon:trash" width="24" height="24" />
                                 </button>
                             </div>
