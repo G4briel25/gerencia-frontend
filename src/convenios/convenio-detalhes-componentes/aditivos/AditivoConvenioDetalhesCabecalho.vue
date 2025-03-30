@@ -1,11 +1,42 @@
 <script setup>
 import {Icon} from '@iconify/vue';
 import {computed, defineProps} from 'vue';
+import {useRouter} from "vue-router";
+import {useConfirm, useToast} from "primevue";
 
-const props = defineProps(['aditivoId', 'aditivoConvenioService', 'listaLancamentoAditivo']);
+const router = useRouter();
+const props = defineProps(['aditivoConvenioService', 'listaLancamentoAditivo']);
+const confirm = useConfirm();
+const toast = useToast();
 
-const excluirAditivo = (aditivoId) => {
-    console.log(aditivoId)
+const excluirAditivo = async (_convenioId, _aditivoId) => {
+    confirm.require({
+        message: 'Você deseja excluir este aditivo?',
+        header: 'Zona de Perigo',
+        icon: 'pi pi-info-circle',
+        rejectLabel: 'Cancelar',
+        rejectProps: {
+            label: 'Cancelar',
+            severity: 'secondary',
+            outlined: true
+        },
+        acceptProps: {
+            label: 'Excluir',
+            severity: 'danger'
+        },
+        accept: async () => {
+            const result = await props.aditivoConvenioService.excluirAditivo(_convenioId, _aditivoId);
+            if (result.success) {
+                toast.add({severity: 'info', summary: 'Confirmado', detail: 'Aditivo excluído', life: 5000});
+                await router.push({name: 'convenio-detalhe', params: {id: _convenioId}});
+            } else {
+                toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
+            }
+        },
+        reject: () => {
+            toast.add({severity: 'error', summary: 'Rejeitado', detail: 'Você rejeitou a exclusão', life: 5000});
+        }
+    });
 };
 
 const isValid = computed(() => {
@@ -25,7 +56,7 @@ const isValid = computed(() => {
                 </div>
                 <button
                     :disabled="isValid"
-                    @click="excluirAditivo(aditivoId)"
+                    @click="excluirAditivo(aditivoConvenioService.content.convenioId, aditivoConvenioService.content.id)"
                     v-tooltip.left="isValid ? 'Para excluir este aditivo, deve limpar todos os lançamentos' : 'Excluir Aditivo'"
                     class="p-2 gap-0 border border-transparent rounded-md shadow-sm
                         text-white bg-red-500 hover:bg-red-600

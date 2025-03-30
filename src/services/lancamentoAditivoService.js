@@ -21,7 +21,6 @@ const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl',
     actions: {
         async listarLancamentoAditivo(_convenioId, _aditivoId) {
             try {
-                console.log(_convenioId, _aditivoId)
                 const response = await http.get(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos/listar-lancamentos-do-aditivo`);
                 this.content = response.data;
             } catch (error) {

@@ -7,6 +7,7 @@ import convenioServiceImpl from '@/services/convenioService';
 import lancamentoConvenioServiceImpl from "@/services/lancamentoConvenioService.js";
 import aditivoConvenoServiceImpl from "@/services/aditivoConvenioService.js";
 import {useRoute} from "vue-router";
+import ConfirmDialog from "primevue/confirmdialog";
 
 const props = defineProps({
     id: String,
@@ -27,6 +28,7 @@ onMounted( async () => {
 </script>
 
 <template>
+    <ConfirmDialog></ConfirmDialog>
     <div class="py-2 px-5">
         <ConvenioDetalhesCabecalho
             :convenioId="props.id"

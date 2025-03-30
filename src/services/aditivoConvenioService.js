@@ -69,6 +69,18 @@ const aditivoConvenoServiceImpl = defineStore('AditivoConvenoServiceImpl', {
             } catch (error) {
                 console.log('Erro ao atualizar o aditivo:', error);
             }
+        },
+
+        async excluirAditivo(_convenioId, _aditivoId) {
+            try {
+                const response = await http.delete(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}`);
+                if (response.status === 200) {
+                    return { success: true };
+                }
+            } catch (error) {
+                console.log('Erro ao excluir o aditivo:', error);
+                return { success: false, message: 'Erro ao excluir aditivo' };
+            }
         }
     }
 });

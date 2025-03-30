@@ -1,7 +1,6 @@
 <script setup>
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
-import ConfirmDialog from 'primevue/confirmdialog';
 import Tabs from 'primevue/tabs';
 import TabList from 'primevue/tablist';
 import Tab from 'primevue/tab';
@@ -13,7 +12,8 @@ import {useConfirm, useToast} from 'primevue';
 import {defineProps, reactive, ref} from "vue";
 import {Icon} from "@iconify/vue";
 import funcoes from '@/utils/funcoes.js';
-import LancamentoConvenioCadastro from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoConvenioCadastro.vue";
+import LancamentoConvenioCadastro
+    from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoConvenioCadastro.vue";
 import AditivoCadastro from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioCadastro.vue";
 import {useRouter} from "vue-router";
 
@@ -95,7 +95,6 @@ const excluirLancamento = (_convenioId, _lancamentoId) => {
 </script>
 
 <template>
-    <ConfirmDialog></ConfirmDialog>
     <Tabs v-model:value="valor">
         <TabList>
             <div class="w-full flex justify-between">

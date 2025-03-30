@@ -11,7 +11,6 @@ import {Icon} from "@iconify/vue";
 import Message from "primevue/message";
 import LancamentoAditivoConvenioCadastro
     from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoAditivoConvenioCadastro.vue";
-import ConfirmDialog from "primevue/confirmdialog";
 
 const { formatarDataBr, formatarMoedaBr } = funcoes();
 
@@ -24,7 +23,6 @@ const isValidDataTable = computed(() => {
 });
 
 const editarLancamento = async (_convenioId, _aditivoId, _lancamentoId) => {
-    console.log(_convenioId, _aditivoId, _lancamentoId)
     await props.lancamentoAditivoService.buscarPorId(_convenioId, _aditivoId, _lancamentoId);
     props.lancamentoAditivoService.cadastro.showModal = true;
 };
@@ -72,7 +70,6 @@ const excluirLancamento = async (_convenioId, _aditivoId, _lancamentoId) => {
 </script>
 
 <template>
-    <ConfirmDialog></ConfirmDialog>
     <Tabs value="0">
         <TabList>
             <div class="w-full flex justify-between">
