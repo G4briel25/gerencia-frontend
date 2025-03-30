@@ -63,7 +63,7 @@ const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl',
 
         async excluirLancamento(_convenioId, _aditivoId, _lancamentoId) {
             try {
-                const response = await http.delete(`/api/convenios/{convenioId}/aditivos/{aditivoId}/lancamentos`);
+                const response = await http.delete(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos/${_lancamentoId}`);
                 if (response.status === 200) {
                     return { success: true };
                 }
