@@ -24,7 +24,10 @@ onMounted( async ()=> {
 
 <template>
     <div class="py-2 px-5">
-        <AditivoConvenioDetalhesCabecalho :aditivoId="props.id"></AditivoConvenioDetalhesCabecalho>
+        <AditivoConvenioDetalhesCabecalho
+            :aditivoId="props.id"
+            :aditivoConvenioService="aditivoConvenioService.content"
+        ></AditivoConvenioDetalhesCabecalho>
         <br>
         <main>
             <AditivoConvenioPanelDetalhes :aditivoConvenioService="aditivoConvenioService.content"></AditivoConvenioPanelDetalhes>

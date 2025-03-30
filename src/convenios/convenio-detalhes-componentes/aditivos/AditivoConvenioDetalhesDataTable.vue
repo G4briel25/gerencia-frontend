@@ -5,12 +5,11 @@ import TabList from 'primevue/tablist';
 import Tab from 'primevue/tab';
 import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
-import {computed, defineProps, reactive} from "vue";
+import {computed, defineProps} from "vue";
 import funcoes from '@/utils/funcoes.js';
 import {Icon} from "@iconify/vue";
 import LancamentoConvenioCadastro
     from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoConvenioCadastro.vue";
-import AditivoCadastro from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioCadastro.vue";
 import Message from "primevue/message";
 import lancamentoAditivoServiceImpl from "@/services/lancamentoAditivoService.js";
 
@@ -19,7 +18,7 @@ const { formatarDataBr, formatarMoedaBr } = funcoes();
 const props = defineProps(['aditivoConvenioService']);
 const lancamentoAditivoService = lancamentoAditivoServiceImpl();
 
-const isValid = computed(() => {
+const isValidDataTable = computed(() => {
     return props.aditivoConvenioService.lancamento && props.aditivoConvenioService.lancamento.length > 0;
 });
 
@@ -53,7 +52,7 @@ const editarLancamento = async (_convenioId, _lancamentoId) => {
         </TabList>
         <TabPanels>
             <TabPanel value="0">
-                <DataTable v-if="isValid" :value="aditivoConvenioService.lancamento" showGridlines>
+                <DataTable v-if="isValidDataTable" :value="aditivoConvenioService.lancamento" showGridlines>
                     <Column field="id" header="Id"></Column>
                     <Column field="exercicio" header="Exercício"></Column>
                     <Column field="dataRepasse" header="Data de Repasse">

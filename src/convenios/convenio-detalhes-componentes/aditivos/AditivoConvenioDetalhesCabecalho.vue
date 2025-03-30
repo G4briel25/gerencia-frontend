@@ -1,15 +1,16 @@
 <script setup>
 import {Icon} from '@iconify/vue';
-import convenioServiceImpl from '@/services/convenioService.js';
-import {defineProps} from 'vue';
-import {Button} from 'primevue';
+import {computed, defineProps} from 'vue';
 
-const props = defineProps(['aditivoId']);
-const convenioService = convenioServiceImpl();
+const props = defineProps(['aditivoId', 'aditivoConvenioService']);
 
 const excluirAditivo = (aditivoId) => {
     console.log(aditivoId)
 };
+
+const isValid = computed(() => {
+    return props.aditivoConvenioService.lancamento && props.aditivoConvenioService.lancamento.length > 0;
+});
 
 </script>
 
@@ -23,13 +24,16 @@ const excluirAditivo = (aditivoId) => {
                     </h1>
                 </div>
                 <button
-                    @click="excluirAditivo(aditivoId)" v-tooltip.left="'Excluir'"
+                    :disabled="isValid"
+                    @click="excluirAditivo(aditivoId)"
+                    v-tooltip.left="isValid ? 'Para excluir este aditivo, deve limpar todos os lançamentos' : 'Excluir Aditivo'"
                     class="p-2 gap-0 border border-transparent rounded-md shadow-sm
                         text-white bg-red-500 hover:bg-red-600
-                        focus:outline-none focus:ring-2 focus:ring-offset-2
+                         focus:outline-none focus:ring-2 focus:ring-offset-2
                         focus:ring-red-500
-                    ">
-                    <Icon icon="iconamoon:trash" width="24" height="24" />
+                        disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+                >
+                    <Icon icon="iconamoon:trash" width="24" height="24"/>
                 </button>
             </div>
         </div>
