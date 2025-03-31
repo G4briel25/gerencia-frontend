@@ -8,10 +8,10 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import Aura from '@primeuix/themes/aura';
 import Tooltip from 'primevue/tooltip';
+import ToastPlugin  from '@/utils/toastPlugin.js';
 
 import App from './App.vue'
 import router from './router/index.js'
-
 
 const app = createApp(App)
 
@@ -29,6 +29,6 @@ app.use(PrimeVue, {
 app.directive('tooltip', Tooltip);
 app.use(ConfirmationService);
 app.use(ToastService);
-
+app.use(ToastPlugin);
 
 app.mount("#app");

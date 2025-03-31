@@ -1,9 +1,10 @@
 <script setup>
 import convenioServiceImpl from '@/services/convenioService.js';
 import { Icon } from '@iconify/vue';
-import { Button, DatePicker, Dialog, InputNumber, InputText, Select } from 'primevue';
+import {Button, DatePicker, Dialog, InputNumber, InputText, Select, Toast, useToast} from 'primevue';
 import {computed, ref} from "vue";
 
+const toast = useToast();
 const convenioService = convenioServiceImpl();
 
 const situacaoOpcoes = ref([
@@ -39,10 +40,91 @@ const selectedTipoConvenio = computed({
     }
 });
 
+const invalidFields = ref({
+    proponente: false,
+    convenente: false,
+    responsaveis: false,
+    objeto: false,
+    numeroConvenio: false,
+    numeroProcesso: false,
+    valorTotal: false,
+    situacaoDescricao: false,
+    tipoDeConvenio: false,
+    dataInicio: false
+});
+
+const validarCampos = () => {
+    let isValid = true;
+
+    const { proponente, convenente, responsaveis, objeto, numeroConvenio, numeroProcesso, valorTotal, situacaoDescricao, tipoDeConvenio, dataInicio } = convenioService.cadastro.objeto;
+
+    // Validar campos obrigatórios e atualizar o estado dos campos inválidos
+    if (!proponente) { invalidFields.value.proponente = true; isValid = false; }
+    if (!convenente) { invalidFields.value.convenente = true; isValid = false; }
+    if (!responsaveis) { invalidFields.value.responsaveis = true; isValid = false; }
+    if (!objeto) { invalidFields.value.objeto = true; isValid = false; }
+    if (!numeroConvenio) { invalidFields.value.numeroConvenio = true; isValid = false; }
+    if (!numeroProcesso) { invalidFields.value.numeroProcesso = true; isValid = false; }
+    if (!valorTotal) { invalidFields.value.valorTotal = true; isValid = false; }
+    if (!situacaoDescricao) { invalidFields.value.situacaoDescricao = true; isValid = false; }
+    if (!tipoDeConvenio) { invalidFields.value.tipoDeConvenio = true; isValid = false; }
+    if (!dataInicio) { invalidFields.value.dataInicio = true; isValid = false; }
+
+    return isValid;
+};
+
+const novoConvenio = async (obj) => {
+    // Limpar os erros ao tentar submeter novamente
+    Object.keys(invalidFields.value).forEach(key => invalidFields.value[key] = false);
+
+    if (!validarCampos()) {
+        toast.add({ severity: 'error', summary: 'Erro', detail: 'Por favor, preencha todos os campos obrigatórios.', life: 5000 });
+        return;
+    }
+
+    try {
+        let result;
+        if (obj.id) {
+            result = await convenioService.atualizarConvenio(obj);
+        } else {
+            result = await convenioService.cadastrarConvenio(obj);
+        }
+
+        if (result.success) {
+            convenioService.cadastro.objeto = {};
+            convenioService.cadastro.showModal = false;
+            await convenioService.listarConvenios();
+            toast.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: obj.id ? 'Convênio atualizado com sucesso!' : 'Convênio cadastrado com sucesso!',
+                life: 5000
+            });
+        } else {
+            toast.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'Houve um erro ao salvar o convênio. Tente novamente.',
+                life: 5000
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao salvar o convênio:', error);
+        toast.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Houve um erro inesperado. Tente novamente mais tarde.',
+            life: 5000
+        });
+    }
+};
+
+
 </script>
 
 <template>
     <div>
+        <Toast></Toast>
         <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[60rem] xl:w-[70rem] 2xl:w-[80rem]" v-model:visible="convenioService.cadastro.showModal" modal header="Cadastro de Convênio">
             <div class="grid gap-4 mb-2 sm:grid-cols-1 md:gap-2 md:grid-cols-2 lg:grid-cols-3 lg:py-4 lg:gap-8">
                 <div class="px-2">
@@ -53,7 +135,7 @@ const selectedTipoConvenio = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.proponente" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.proponente" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.proponente" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -63,7 +145,7 @@ const selectedTipoConvenio = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.convenente" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.convenente" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.convenente" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -73,7 +155,7 @@ const selectedTipoConvenio = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.responsaveis" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.responsaveis" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -83,7 +165,7 @@ const selectedTipoConvenio = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.objeto" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.objeto" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.objeto" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -93,7 +175,7 @@ const selectedTipoConvenio = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.numeroConvenio" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.numeroConvenio" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.numeroConvenio" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -103,7 +185,7 @@ const selectedTipoConvenio = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="convenioService.cadastro.objeto.numeroProcesso" class="w-56 md:w-10/12 lg:w-11/12" />
+                    <InputText v-model="convenioService.cadastro.objeto.numeroProcesso" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.numeroProcesso" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -119,6 +201,7 @@ const selectedTipoConvenio = computed({
                         prefix="R$ "
                         locale="pt-BR"
                         :minFractionDigits="2"
+                        :invalid="invalidFields.valorTotal"
                     />
                 </div>
                 <div class="px-2">
@@ -130,7 +213,7 @@ const selectedTipoConvenio = computed({
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedSituacao" :options="situacaoOpcoes" optionLabel="name"
-                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" />
+                            placeholder="Selecione a situação" class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.situacaoDescricao" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -141,7 +224,7 @@ const selectedTipoConvenio = computed({
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <Select v-model="selectedTipoConvenio" :options="tipoConvenio" optionLabel="name" placeholder="Selecione o tipo"
-                        class="w-56 md:w-10/12 lg:w-11/12" />
+                        class="w-56 md:w-10/12 lg:w-11/12" :invalid="invalidFields.tipoDeConvenio" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -151,11 +234,12 @@ const selectedTipoConvenio = computed({
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <DatePicker 
+                    <DatePicker
                         v-model="convenioService.cadastro.objeto.dataInicio"
                         dateFormat="dd/mm/yy"
                         locale="pt-BR"
                         inputId="data-inicio"
+                        :invalid="invalidFields.dataInicio"
                     />
                 </div>
                 <div class="px-2">
@@ -179,7 +263,7 @@ const selectedTipoConvenio = computed({
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                     @click="convenioService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="visible = false"></Button>
+                <Button severity="info" type="button" label="Salvar" @click="novoConvenio(convenioService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>

@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import http from "@/services/http.js";
 
-const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl', {
+const lancamentoAditivoServiceImpl = defineStore('LancamentoAditivoServiceImpl', {
     state: () => ({
         content: [],
         objetoPadrao: {
@@ -19,28 +19,28 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
     }),
 
     actions: {
-        async listarLancamento(_convenioId) {
+        async listarLancamentoAditivo(_convenioId, _aditivoId) {
             try {
-                const response = await http.get(`/api/convenios/${_convenioId}/lancamentos/listar-lancamentos`);
+                const response = await http.get(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos/listar-lancamentos-do-aditivo`);
                 this.content = response.data;
             } catch (error) {
-                console.error('Erro ao listar convênios:', error);
+                console.error('Erro ao listar convênios:', error.msg);
                 this.content = [];
             }
         },
 
-        async buscarPorId(_convenioId, _lancamentoId) {
+        async buscarPorId(_convenioId, _aditivoId, _lancamentoId) {
             try {
-                const response = await http.get(`/api/convenios/${_convenioId}/lancamentos/${_lancamentoId}`)
+                const response = await http.get(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos/${_lancamentoId}`);
                 this.cadastro.objeto = response.data;
             } catch (error) {
                 console.log('Erro ao editar convênio:', error);
             }
         },
 
-        async cadastrarLancamento(_convenioId, obj) {
+        async cadastrarLancamento(_convenioId, _aditivoId, obj) {
             try {
-                const response = await http.post(`/api/convenios/${_convenioId}/lancamentos`, obj);
+                const response = await http.post(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos`, obj);
                 if (response.status === 201) {
                     return { success: true };
                 }
@@ -51,7 +51,7 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
 
         async atualizarLancamento(obj) {
             try {
-                const response = await http.put(`/api/convenios/${obj.convenioId}/lancamentos/${obj.id}`, obj);
+                const response = await http.put(`/api/convenios/${obj.convenioId}/aditivos/${obj.aditivoId}/lancamentos/${obj.id}`, obj);
                 if (response.status === 200) {
                     return { success: true };
                 }
@@ -60,9 +60,9 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
             }
         },
 
-        async excluirLancamento(_convenioId, _lancamentoId) {
+        async excluirLancamento(_convenioId, _aditivoId, _lancamentoId) {
             try {
-                const response = await http.delete(`/api/convenios/${_convenioId}/lancamentos/${_lancamentoId}`);
+                const response = await http.delete(`/api/convenios/${_convenioId}/aditivos/${_aditivoId}/lancamentos/${_lancamentoId}`);
                 if (response.status === 200) {
                     return { success: true };
                 }
@@ -74,4 +74,4 @@ const lancamentoConvenioServiceImpl = defineStore('LancamentoConvenioServiceImpl
     }
 });
 
-export default lancamentoConvenioServiceImpl;
+export default lancamentoAditivoServiceImpl;

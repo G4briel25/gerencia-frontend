@@ -7,7 +7,6 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-
 // Mobile
 const homeMenu = ref({
     label: "Home",
@@ -29,10 +28,21 @@ const items = computed(() => {
     return matched.reduce((acc, item) => {
         if (item.meta.breadcrumb) {
             return acc.concat(
-                item.meta.breadcrumb.map((breadcrumbItem) => ({
-                    label: breadcrumbItem.nome,
-                    to: breadcrumbItem.url ? { path: breadcrumbItem.url } : undefined,
-                }))
+                item.meta.breadcrumb.map((breadcrumbItem) => {
+                    let url = breadcrumbItem.url;
+
+                    if (url) {
+                        // Substitui os parâmetros dinâmicos na URL
+                        Object.keys(route.params).forEach(param => {
+                            url = url.replace(`:${param}`, route.params[param]);
+                        });
+                    }
+
+                    return {
+                        label: breadcrumbItem.nome,
+                        to: url ? { path: url } : undefined,
+                    };
+                })
             );
         }
         return acc;

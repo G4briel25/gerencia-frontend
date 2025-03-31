@@ -35,7 +35,7 @@ const routes = [
                 }
             },
             {
-                path: "convenio/:id",
+                path: "convenio/:convenioId",
                 name: "convenio-detalhe",
                 component: () => import("@/convenios/ConvenioDetalhe.vue"),
                 props: true,
@@ -45,6 +45,21 @@ const routes = [
                     breadcrumb: [
                         { nome: "Convênios", url: "/convenio" },
                         { nome: "Detalhes do Convênio" },
+                    ],
+                }
+            },
+            {
+                path: "convenio/:convenioId/aditivo/:aditivoId",
+                name: "aditivo-detalhe",
+                component: () => import("@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhe.vue"),
+                props: true,
+                meta: {
+                    requiresAuth: true,
+                    titulo: "Detalhes do Aditivo",
+                    breadcrumb: [
+                        { nome: "Convênios", url: "/convenio" },
+                        { nome: "Detalhes do Convênio", url: "/convenio/:convenioId" },
+                        { nome: "Aditivo" },
                     ],
                 }
             },

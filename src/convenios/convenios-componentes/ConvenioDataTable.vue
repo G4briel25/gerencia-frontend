@@ -11,21 +11,15 @@ const { formatarDataBr, formatarMoedaBr } = funcoes();
 const convenioService = convenioServiceImpl();
 
 const router = useRouter();
-
-const props = defineProps({
-  convenios: {
-    type: Array,
-    required: true,
-  },
-});
+const props = defineProps(['convenios']);
 
 const editar = async (id) => {
     await convenioService.buscarPorId(id);
     convenioService.cadastro.showModal = true;
 };
 
-const detalhar = (id) => {
-    router.push({ name: 'convenio-detalhe', params: {id} });
+const detalhar = (_convenioId) => {
+    router.push({ name: 'convenio-detalhe', params: {convenioId: _convenioId} });
 };
 
 </script>

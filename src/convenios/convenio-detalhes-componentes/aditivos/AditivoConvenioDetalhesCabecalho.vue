@@ -1,17 +1,17 @@
 <script setup>
 import {Icon} from '@iconify/vue';
 import {computed, defineProps} from 'vue';
-import {useConfirm, useToast} from "primevue";
 import {useRouter} from "vue-router";
+import {useConfirm, useToast} from "primevue";
 
 const router = useRouter();
-const props = defineProps(['convenioService', 'listaLancamentos', 'listaAditivos']);
+const props = defineProps(['aditivoConvenioService', 'listaLancamentoAditivo']);
 const confirm = useConfirm();
 const toast = useToast();
 
-const excluirConvenio = (_convenioId) => {
+const excluirAditivo = async (_convenioId, _aditivoId) => {
     confirm.require({
-        message: 'Você deseja excluir este convênio?',
+        message: 'Você deseja excluir este aditivo?',
         header: 'Zona de Perigo',
         icon: 'pi pi-info-circle',
         rejectLabel: 'Cancelar',
@@ -25,17 +25,19 @@ const excluirConvenio = (_convenioId) => {
             severity: 'danger'
         },
         accept: async () => {
-            const result = await props.convenioService.excluirCovenio(_convenioId);
+            const result = await props.aditivoConvenioService.excluirAditivo(_convenioId, _aditivoId);
             if (result.success) {
-                toast.add({severity: 'info', summary: 'Confirmado', detail: 'Convênio excluído', life: 5000});
-                await router.push({name: 'convenio'});
+                toast.add({severity: 'info', summary: 'Confirmado', detail: 'Aditivo excluído', life: 5000});
+                await router.push({name: 'convenio-detalhe', params: {convenioId: _convenioId}});
+            } else {
+                toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
             }
-        },
+        }
     });
 };
 
 const isValid = computed(() => {
-    return props.listaLancamentos && props.listaLancamentos.length > 0 || props.listaAditivos && props.listaAditivos.length > 0;
+    return props.listaLancamentoAditivo && props.listaLancamentoAditivo.length > 0;
 });
 
 </script>
@@ -46,12 +48,13 @@ const isValid = computed(() => {
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <Icon icon="bx:file" width="36" height="36" class="hidden md:block text-blue-700 dark:text-white" />
-                    <h1 class="ml-2 text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Detalhes do Convênio</h1>
+                    <h1 class="ml-2 text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Detalhes do Aditivo
+                    </h1>
                 </div>
                 <button
                     :disabled="isValid"
-                    @click="excluirConvenio(props.convenioService.convenioDetalhado.id)"
-                    v-tooltip.left="isValid ? 'Para excluir este convênio, deve limpar todos os lançamentos e aditivos' : 'Excluir Convênio'"
+                    @click="excluirAditivo(aditivoConvenioService.content.convenioId, aditivoConvenioService.content.id)"
+                    v-tooltip.left="isValid ? 'Para excluir este aditivo, deve limpar todos os lançamentos' : 'Excluir Aditivo'"
                     class="p-2 gap-0 border border-transparent rounded-md shadow-sm
                         text-white bg-red-500 hover:bg-red-600
                          focus:outline-none focus:ring-2 focus:ring-offset-2

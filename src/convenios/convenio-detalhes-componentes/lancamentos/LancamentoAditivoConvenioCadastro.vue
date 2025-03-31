@@ -1,14 +1,14 @@
 <script setup>
 import {Icon} from '@iconify/vue';
 import {Button, DatePicker, Dialog, InputNumber, InputText, Toast, useToast} from 'primevue';
-import lancamentoConvenioServiceImpl from "@/services/lancamentoConvenioService.js";
 import convenioServiceImpl from "@/services/convenioService.js";
 import {useRoute} from "vue-router";
 import {ref} from "vue";
+import lancamentoAditivoServiceImpl from "@/services/lancamentoAditivoService.js";
 
 const toast = useToast();
 const route = useRoute();
-const lancamentoService = lancamentoConvenioServiceImpl();
+const lancamentoAditivoConvenioService = lancamentoAditivoServiceImpl();
 const convenioService = convenioServiceImpl();
 
 const invalidFields = ref({
@@ -20,7 +20,7 @@ const invalidFields = ref({
 const validarCampos = () => {
     let isValid = true;
 
-    const { dataRepasse, exercicio, valorPago } = lancamentoService.cadastro.objeto;
+    const { dataRepasse, exercicio, valorPago } = lancamentoAditivoConvenioService.cadastro.objeto;
 
     // Validar campos obrigatórios e atualizar o estado dos campos inválidos
     if (!dataRepasse) { invalidFields.value.dataRepasse = true; isValid = false; }
@@ -42,14 +42,14 @@ const novoLancamento = async (obj) => {
     try {
         let result;
         if(obj.id) {
-            result = await lancamentoService.atualizarLancamento(obj);
+            result = await lancamentoAditivoConvenioService.atualizarLancamento(obj);
         } else {
-            result = await lancamentoService.cadastrarLancamento(convenioService.convenioDetalhado.id, obj);
+            result = await lancamentoAditivoConvenioService.cadastrarLancamento(route.params.convenioId, route.params.aditivoId, obj);
         }
 
         if (result.success) {
-            await lancamentoService.listarLancamento(route.params.convenioId);
-            lancamentoService.cadastro.showModal = false;
+            await lancamentoAditivoConvenioService.listarLancamentoAditivo(route.params.convenioId, route.params.aditivoId);
+            lancamentoAditivoConvenioService.cadastro.showModal = false;
             toast.add({
                 severity: 'success',
                 summary: 'Sucesso',
@@ -73,7 +73,7 @@ const novoLancamento = async (obj) => {
 <template>
     <div>
         <Toast></Toast>
-        <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[45rem]" v-model:visible="lancamentoService.cadastro.showModal" modal header="Cadastro de Lançamento do Convênio">
+        <Dialog class="mx-4 w-8/12 md:w-[40rem] lg:w-[45rem]" v-model:visible="lancamentoAditivoConvenioService.cadastro.showModal" modal header="Cadastro de Lançamento do Aditivo">
             <div class="grid gap-8 mb-2 grid-cols-1 md:grid-cols-2 lg:py-4">
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -83,7 +83,7 @@ const novoLancamento = async (obj) => {
                         </label>
                         <span class="text-red-500 ml-2">*</span>
                     </div>
-                    <InputText v-model="lancamentoService.cadastro.objeto.exercicio" :invalid="invalidFields.exercicio" class="w-52" />
+                    <InputText v-model="lancamentoAditivoConvenioService.cadastro.objeto.exercicio" :invalid="invalidFields.exercicio" class="w-52" />
                 </div>
                 <div class="px-2">
                     <div class="flex mb-1">
@@ -94,7 +94,7 @@ const novoLancamento = async (obj) => {
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <InputNumber
-                        v-model="lancamentoService.cadastro.objeto.valorPago"
+                        v-model="lancamentoAditivoConvenioService.cadastro.objeto.valorPago"
                         :invalid="invalidFields.valorPago"
                         class="w-52"
                         prefix="R$ "
@@ -111,7 +111,7 @@ const novoLancamento = async (obj) => {
                         <span class="text-red-500 ml-2">*</span>
                     </div>
                     <DatePicker
-                        v-model="lancamentoService.cadastro.objeto.dataRepasse"
+                        v-model="lancamentoAditivoConvenioService.cadastro.objeto.dataRepasse"
                         :invalid="invalidFields.dataRepasse"
                         dateFormat="dd/mm/yy"
                         locale="pt-BR"
@@ -124,8 +124,8 @@ const novoLancamento = async (obj) => {
 
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
-                        @click="lancamentoService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="novoLancamento(lancamentoService.cadastro.objeto)"></Button>
+                        @click="lancamentoAditivoConvenioService.cadastro.showModal = false"></Button>
+                <Button severity="info" type="button" label="Salvar" @click="novoLancamento(lancamentoAditivoConvenioService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>
