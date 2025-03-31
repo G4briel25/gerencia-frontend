@@ -36,6 +36,24 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
             }
         },
 
+        async buscarPorId(_convenioId) {
+            try {
+                const response = await http.get(`/api/convenios/${_convenioId}`)
+                this.cadastro.objeto = response.data;
+            } catch (error) {
+                console.log('Erro ao buscar convênio por id:', error);
+            }
+        },
+
+        async listarConvenioPorId(_convenioId) {
+            try {
+                const response = await http.get(`/api/convenios/${_convenioId}/detalhado`);
+                this.convenioDetalhado = response.data;
+            } catch (error) {
+                console.log('Erro ao listar convênio por id:', error);
+            }
+        },
+
         async cadastrarConvenio(obj) {
             try {
                 const response = await http.post('/api/convenios', obj);
@@ -58,25 +76,6 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
             }
         },
 
-
-        async buscarPorId(_convenioId) {
-            try {
-                const response = await http.get(`/api/convenios/${_convenioId}`)
-                this.cadastro.objeto = response.data;
-            } catch (error) {
-                console.log('Erro ao editar convênio:', error);
-            }
-        },
-
-        async listarConvenioPorId(_convenioId) {
-            try {
-                const response = await http.get(`/api/convenios/${_convenioId}/detalhado`);
-                this.convenioDetalhado = response.data;
-            } catch (error) {
-                console.log('Erro ao listar convênio por id:', error);                
-            }
-        },
-
         async excluirCovenio(_convenioId) {
             try {
                 const response = await http.delete(`/api/convenios/${_convenioId}`);
@@ -85,7 +84,6 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
                 }
             } catch (error) {
                 console.log('Erro ao excluir o convênio:', error);
-                return { success: false, message: 'Erro ao excluir convênio' };
             }
         }
     }

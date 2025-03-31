@@ -85,9 +85,6 @@ const excluirLancamento = (_convenioId, _lancamentoId) => {
             } else {
                 toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
             }
-        },
-        reject: () => {
-            toast.add({severity: 'error', summary: 'Rejeitado', detail: 'Você rejeitou a exclusão', life: 5000});
         }
     });
 };

@@ -29,13 +29,8 @@ const excluirConvenio = (_convenioId) => {
             if (result.success) {
                 toast.add({severity: 'info', summary: 'Confirmado', detail: 'Convênio excluído', life: 5000});
                 await router.push({name: 'convenio'});
-            } else {
-                toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
             }
         },
-        reject: () => {
-            toast.add({severity: 'error', summary: 'Rejeitado', detail: 'Você rejeitou a exclusão', life: 5000});
-        }
     });
 };
 
