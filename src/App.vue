@@ -5,7 +5,7 @@ import MensagemToast from "@/components/MensagemToast.vue";
 
 <template>
     <MensagemToast/>
-    <div style="min-height: 95vh;">
+    <div>
         <router-view></router-view>
     </div>
 </template>

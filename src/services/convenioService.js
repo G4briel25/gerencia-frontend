@@ -36,6 +36,16 @@ const convenioServiceImpl = defineStore('ConvenioServiceImpl', {
             }
         },
 
+        async buscarConvenios(filtro) {
+            try {
+                const response = await http.post('/api/convenios/filtrar', filtro);
+                this.content = response.data;
+            } catch (error) {
+                console.error('Erro ao buscar convênios:', error);
+                this.content = [];
+            }
+        },
+
         async buscarPorId(_convenioId) {
             try {
                 const response = await http.get(`/api/convenios/${_convenioId}`)

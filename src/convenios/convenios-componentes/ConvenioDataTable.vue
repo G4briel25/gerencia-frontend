@@ -5,6 +5,7 @@ import { defineProps } from 'vue';
 import funcoes from '@/utils/funcoes.js';
 import convenioServiceImpl from '@/services/convenioService.js';
 import { useRouter } from 'vue-router';
+import Message from "primevue/message";
 
 const { formatarDataBr, formatarMoedaBr } = funcoes();
 
@@ -25,7 +26,7 @@ const detalhar = (_convenioId) => {
 </script>
 
 <template>
-    <DataTable :value="props.convenios" showGridlines paginator :rows="5"
+    <DataTable v-if="props.convenios.length" :value="props.convenios" showGridlines paginator :rows="5"
         :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50">
         <Column field="id" header="ID"></Column>
         <Column field="numeroConvenio" header="Convênio"></Column>
@@ -61,4 +62,6 @@ const detalhar = (_convenioId) => {
             </template>
         </Column>
     </DataTable>
+
+    <Message v-else severity="warn">Não foram encontrados nenhum registro.</Message>
 </template>
