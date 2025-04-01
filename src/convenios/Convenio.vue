@@ -12,6 +12,20 @@ const router = useRouter();
 const autStore = useAuthStore();
 const convenioService = convenioServiceImpl();
 
+const buscar = async (filtro) => {
+    const isFiltroVazio = Object.values(filtro).every(value => !value);
+
+    if (isFiltroVazio) {
+        await convenioService.listarConvenios();
+    } else {
+        await convenioService.buscarConvenios(filtro);
+    }
+};
+
+const limpar = () => {
+    convenioService.content = [];
+};
+
 onMounted( async () => {
     try {
         await convenioService.listarConvenios();
@@ -33,7 +47,7 @@ onMounted( async () => {
         <main>
             <Panel header="Filtros" class="shadow-md">
                 <br>
-                <ConvenioFiltroBusca></ConvenioFiltroBusca>
+                <ConvenioFiltroBusca @buscarConvenios="buscar" @limparFiltros="limpar" />
             </Panel>
             <br><br>
             <ConvenioDataTable :convenios="convenioService.content"></ConvenioDataTable>
