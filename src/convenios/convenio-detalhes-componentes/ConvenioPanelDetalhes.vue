@@ -11,7 +11,7 @@ const props = defineProps(['convenioService']);
 </script>
 
 <template>
-    <Panel header="Filtros" class="shadow-md">
+    <Panel header="Convênio:" class="shadow-md">
         <br>
         <div class="flex flex-col gap-4 md:grid md:gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-x-4 md:gap-y-8">
             <div class="px-2 bg-neutral-200 dark:bg-neutral-800 md:bg-transparent md:dark:bg-transparent">
