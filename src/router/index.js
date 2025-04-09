@@ -69,7 +69,7 @@ const routes = [
                 component: () => import("@/views/404.vue"),
                 meta: {
                     titulo: "Página não encontrada",
-                    breadcrumb: [{ nome: "Início", url: "/" }, { nome: "Erro 404" }],
+                    breadcrumb: [{ nome: "Erro 404" }],
                 },
             }
         ]
