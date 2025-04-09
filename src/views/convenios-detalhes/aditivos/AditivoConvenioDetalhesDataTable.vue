@@ -10,7 +10,7 @@ import funcoes from '@/utils/funcoes.js';
 import {Icon} from "@iconify/vue";
 import Message from "primevue/message";
 import LancamentoAditivoConvenioCadastro
-    from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoAditivoConvenioCadastro.vue";
+    from "@/views/convenios-detalhes/lancamentos/LancamentoAditivoConvenioCadastro.vue";
 
 const { formatarDataBr, formatarMoedaBr } = funcoes();
 
@@ -53,12 +53,17 @@ const excluirLancamento = async (_convenioId, _aditivoId, _lancamentoId) => {
             severity: 'danger'
         },
         accept: async () => {
-            const result = await props.lancamentoAditivoService.excluirLancamento(_convenioId, _aditivoId, _lancamentoId);
-            if (result.success) {
-                toast.add({severity: 'info', summary: 'Confirmado', detail: 'Registro excluído', life: 5000});
-                await props.lancamentoAditivoService.listarLancamentoAditivo(_convenioId, _aditivoId);
-            } else {
-                toast.add({severity: 'error', summary: 'Erro', detail: result.message, life: 5000});
+            try {
+                const result = await props.lancamentoAditivoService.excluirLancamento(_convenioId, _aditivoId, _lancamentoId);
+                if (result.success) {
+                    toast.add({severity: 'info', summary: 'Confirmado', detail: 'Registro excluído', life: 5000});
+                    await props.lancamentoAditivoService.listarLancamentoAditivo(_convenioId, _aditivoId);
+                } else {
+                    toast.add({severity: 'error', summary: 'Erro', detail: result.message || 'Falha ao excluir o registro.', life: 5000});
+                }
+            } catch (error) {
+                console.error('Erro ao excluir lançamento:', error);
+                toast.add({severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro ao tentar excluir o registro.', life: 5000});
             }
         }
     });

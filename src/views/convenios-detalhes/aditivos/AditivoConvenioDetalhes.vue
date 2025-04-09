@@ -1,24 +1,29 @@
 <script setup>
 
-import AditivoConvenioDetalhesCabecalho
-    from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhesCabecalho.vue";
-import {onMounted} from "vue";
-import AditivoConvenioPanelDetalhes
-    from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioPanelDetalhes.vue";
-import AditivoConvenioDetalhesDataTable
-    from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhesDataTable.vue";
+import AditivoConvenioDetalhesCabecalho from "@/views/convenios-detalhes/aditivos/AditivoConvenioDetalhesCabecalho.vue";
+import AditivoConvenioPanelDetalhes from "@/views/convenios-detalhes/aditivos/AditivoConvenioDetalhesPanel.vue";
+import AditivoConvenioDetalhesDataTable from "@/views/convenios-detalhes/aditivos/AditivoConvenioDetalhesDataTable.vue";
 import aditivoConvenoServiceImpl from "@/services/aditivoConvenioService.js";
 import lancamentoAditivoServiceImpl from "@/services/lancamentoAditivoService.js";
 import ConfirmDialog from "primevue/confirmdialog";
+import {onMounted, defineEmits} from "vue";
 
 const aditivoConvenioService = aditivoConvenoServiceImpl();
 const lancamentoAditivoService = lancamentoAditivoServiceImpl();
 
+const emit = defineEmits(['start-loading', 'end-loading']);
 const props = defineProps(['convenioId', 'aditivoId']);
 
 onMounted( async ()=> {
-    await aditivoConvenioService.buscarPorIdDetalhar(props.convenioId, props.aditivoId);
-    await lancamentoAditivoService.listarLancamentoAditivo(props.convenioId, props.aditivoId);
+    emit('start-loading');
+    try {
+        await aditivoConvenioService.buscarPorIdDetalhar(props.convenioId, props.aditivoId);
+        await lancamentoAditivoService.listarLancamentoAditivo(props.convenioId, props.aditivoId);
+    } catch (error) {
+        console.log("Erro ao detalhar o aditivo do convênio:", error.message);
+    } finally {
+        emit('end-loading');
+    }
 });
 
 </script>

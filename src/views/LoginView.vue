@@ -4,8 +4,8 @@ import { ref } from 'vue';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
-import http from '@/services/http';
-import useAuthStore from '@/services/authStore';
+import http from '@/services/http.js';
+import useAuthStore from '@/services/authStore.js';
 import {useRouter} from 'vue-router';
 
 const router = useRouter();

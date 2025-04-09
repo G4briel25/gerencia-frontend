@@ -1,6 +1,6 @@
 <script setup>
 import {Icon} from '@iconify/vue';
-import ConvenioCadastro from '@/convenios/convenios-componentes/ConvenioCadastro.vue';
+import ConvenioCadastro from '@/views/convenios/componentes/ConvenioCadastro.vue';
 import convenioServiceImpl from '@/services/convenioService.js';
 import {reactive} from "vue";
 

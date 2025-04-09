@@ -25,7 +25,7 @@ const routes = [
             {
                 path: "convenio",
                 name: "convenio",
-                component: () => import("@/convenios/Convenio.vue"),
+                component: () => import("@/views/convenios/Convenio.vue"),
                 meta: {
                     requiresAuth: true,
                     titulo: "Convênios",
@@ -37,7 +37,7 @@ const routes = [
             {
                 path: "convenio/:convenioId",
                 name: "convenio-detalhe",
-                component: () => import("@/convenios/ConvenioDetalhe.vue"),
+                component: () => import("@/views/convenios-detalhes/ConvenioDetalhes.vue"),
                 props: true,
                 meta: {
                     requiresAuth: true,
@@ -51,7 +51,7 @@ const routes = [
             {
                 path: "convenio/:convenioId/aditivo/:aditivoId",
                 name: "aditivo-detalhe",
-                component: () => import("@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioDetalhe.vue"),
+                component: () => import("@/views/convenios-detalhes/aditivos/AditivoConvenioDetalhes.vue"),
                 props: true,
                 meta: {
                     requiresAuth: true,

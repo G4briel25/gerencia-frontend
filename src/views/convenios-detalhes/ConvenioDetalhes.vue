@@ -1,22 +1,30 @@
 <script setup>
-import {defineProps, onMounted} from 'vue';
-import ConvenioDetalhesDataTable from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesDataTable.vue';
-import ConvenioPanelDetalhes from '@/convenios/convenio-detalhes-componentes/ConvenioPanelDetalhes.vue';
-import ConvenioDetalhesCabecalho from '@/convenios/convenio-detalhes-componentes/ConvenioDetalhesCabecalho.vue';
-import convenioServiceImpl from '@/services/convenioService';
+import {defineEmits, defineProps, onMounted} from 'vue';
+import ConvenioDetalhesDataTable from '@/views/convenios-detalhes/componentes/ConvenioDetalhesDataTable.vue';
+import ConvenioPanelDetalhes from '@/views/convenios-detalhes/componentes/ConvenioDetalhesPanel.vue';
+import ConvenioDetalhesCabecalho from '@/views/convenios-detalhes/componentes/ConvenioDetalhesCabecalho.vue';
+import convenioServiceImpl from '@/services/convenioService.js';
 import lancamentoConvenioServiceImpl from "@/services/lancamentoConvenioService.js";
 import aditivoConvenoServiceImpl from "@/services/aditivoConvenioService.js";
 import ConfirmDialog from "primevue/confirmdialog";
 
+const emit = defineEmits(['start-loading', 'end-loading']);
 const props = defineProps(['convenioId']);
 const convenioService = convenioServiceImpl();
 const lancamentoConvenioService = lancamentoConvenioServiceImpl();
 const aditivoConvenioService = aditivoConvenoServiceImpl();
 
 onMounted(async () => {
-    await convenioService.listarConvenioPorId(props.convenioId);
-    await lancamentoConvenioService.listarLancamento(props.convenioId);
-    await aditivoConvenioService.listarAditivo(props.convenioId);
+    emit('start-loading');
+    try {
+        await convenioService.listarConvenioPorId(props.convenioId);
+        await lancamentoConvenioService.listarLancamento(props.convenioId);
+        await aditivoConvenioService.listarAditivo(props.convenioId);
+    } catch (error) {
+        console.log("Erro ao detalhar o convênio:", error.message);
+    } finally {
+        emit('end-loading');
+    }
 });
 
 </script>

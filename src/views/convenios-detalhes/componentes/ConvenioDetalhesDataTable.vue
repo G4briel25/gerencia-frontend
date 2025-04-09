@@ -13,8 +13,8 @@ import {defineProps, reactive, ref} from "vue";
 import {Icon} from "@iconify/vue";
 import funcoes from '@/utils/funcoes.js';
 import LancamentoConvenioCadastro
-    from "@/convenios/convenio-detalhes-componentes/lancamentos/LancamentoConvenioCadastro.vue";
-import AditivoCadastro from "@/convenios/convenio-detalhes-componentes/aditivos/AditivoConvenioCadastro.vue";
+    from "@/views/convenios-detalhes/lancamentos/LancamentoConvenioCadastro.vue";
+import AditivoCadastro from "@/views/convenios-detalhes/aditivos/AditivoConvenioCadastro.vue";
 import {useRouter} from "vue-router";
 
 const confirm = useConfirm();
