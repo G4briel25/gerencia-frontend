@@ -36,7 +36,7 @@ const handleLogin = async () => {
     <FloatingConfigurator class="fixed flex gap-4 top-8 right-8" />
     <div
         class="bg-gray-50 dark:bg-neutral-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
-        <div class="bg-gray-50 w-full max-w-md p-8 space-y-8 dark:bg-neutral-900 rounded-lg shadow-2xl">
+        <div class="bg-gray-50 w-full max-w-md p-8 space-y-8 dark:bg-neutral-900 rounded-lg shadow-2xl dark:shadow-none">
 
             <div v-if="mensagemError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 {{ mensagemError }}
@@ -53,13 +53,19 @@ const handleLogin = async () => {
                 </div>
                 <div>
                     <label for="password"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
                     <Password id="password" v-model="user.password" :feedback="false" toggleMask class="w-full mt-1" required/>
                 </div>
                 <div>
                     <Button label="Login" type="submit" class="w-full" />
                 </div>
             </form>
+        </div>
+
+        <div class="bg-gray-200 p-4 rounded-md fixed top-36">
+            <p class="text-xl font-medium mb-2">Login:</p>
+            <p>Usuário: meninoNey</p>
+            <p>Senha: neymar</p>
         </div>
     </div>
 </template>
