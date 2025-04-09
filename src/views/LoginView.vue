@@ -17,7 +17,6 @@ const user = ref({
 
 const mensagemError = ref("");
 const handleLogin = async () => {
-    mensagemError.value = "";
     try {
         const response = await http.post('/auth/login', user.value);
         
@@ -26,7 +25,7 @@ const handleLogin = async () => {
 
     } catch (error) {
         mensagemError.value = "Usuário ou senha inválidos";
-        console.error(error?.response?.data);        
+        console.error(error?.response?.data);
     }
 };
 
