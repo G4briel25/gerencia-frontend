@@ -54,7 +54,7 @@ Construída com **Tailwind CSS**, garantindo usabilidade e estética em qualquer
 
 ---
 
-## 🧰 Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
 - Vue.js 3 (Composition API)
 - PrimeVue

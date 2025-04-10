@@ -61,6 +61,7 @@ const detalhar = (_convenioId) => {
                 </div>
             </template>
         </Column>
+        <template #footer> Um total de {{ props.convenios ? props.convenios.length : 0 }} convênios. </template>
     </DataTable>
 
     <Message v-else severity="warn">Não foram encontrados nenhum registro.</Message>
