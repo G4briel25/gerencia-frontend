@@ -9,6 +9,18 @@ const routes = [
         component: () => import("@/views/LoginView.vue"),
     },
     {
+        path: "/cadastro",
+        name: "cadastro-usuario",
+        component: () => import("@/views/CadastroUsuarioView.vue"),
+        meta: {
+            requiresAuth: false,
+            titulo: "Cadastro de Usuário",
+            breadcrumb: [
+                { nome: "Cadastro de Usuário" },
+            ],
+        }
+    },
+    {
         path: "/",
         component: DefaultLayout, // Aplicação do layout global
         redirect: "/dashboard",
