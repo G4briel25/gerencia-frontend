@@ -7,9 +7,7 @@
 ## 🔐 Acesse o Sistema de Gerência
 
 📌 **Você pode acessar o sistema Gerência através do link abaixo:**  
-➡️ [**https://gerencia.exemplo.com**](https://gerencia.exemplo.com)
-
-🔑 *O login será fornecido na página inicial.*
+➡️ [**https://gerencia-frontend.onrender.com**](https://gerencia-frontend.onrender.com)
 
 ---
 
@@ -28,7 +26,7 @@ O **Frontend Gerência** permite o gerenciamento completo dos seguintes dados:
 - Repasses (lançamentos)
 - Proponentes
 
-Esses dados são consumidos pela API e apresentados ao público no sistema [**Transparência**](https://seu-usuario.github.io/transparencia).
+Esses dados são consumidos pela API e apresentados ao público no sistema [**Transparência**](https://transparencia.onrender.com).
 
 ---
 
@@ -75,7 +73,7 @@ Este sistema foi inspirado na solução do **Tribunal de Contas do Estado de Ror
 ## 🌐 Acesse o sistema Transparência
 
 📊 Consulta pública de dados disponível em:  
-➡️ [**https://seu-usuario.github.io/transparencia**](https://seu-usuario.github.io/transparencia)
+➡️ [**https://transparencia.onrender.com**](https://transparencia.onrender.com)
 
 ---
 
