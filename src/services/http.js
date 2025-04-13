@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8081",
+    baseURL: "https://api-gerencia.onrender.com",
     headers: {
         "Content-type": "application/json"
     }
