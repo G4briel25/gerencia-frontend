@@ -10,6 +10,7 @@ const toast = useToast();
 const route = useRoute();
 const lancamentoAditivoConvenioService = lancamentoAditivoServiceImpl();
 const convenioService = convenioServiceImpl();
+const loading = ref(false);
 
 const invalidFields = ref({
     dataRepasse: null,
@@ -39,6 +40,7 @@ const novoLancamento = async (obj) => {
         return;
     }
 
+    loading.value = true;
     try {
         let result;
         if(obj.id) {
@@ -66,8 +68,11 @@ const novoLancamento = async (obj) => {
         }
     } catch (error) {
         console.log(error)
+    } finally {
+        loading.value = false;
     }
 };
+
 </script>
 
 <template>
@@ -125,7 +130,9 @@ const novoLancamento = async (obj) => {
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                         @click="lancamentoAditivoConvenioService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="novoLancamento(lancamentoAditivoConvenioService.cadastro.objeto)"></Button>
+                <Button severity="info" type="button" label="Salvar"
+                        :loading="loading"
+                        @click="novoLancamento(lancamentoAditivoConvenioService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>

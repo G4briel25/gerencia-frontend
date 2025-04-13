@@ -6,6 +6,7 @@ import {computed, ref} from "vue";
 
 const toast = useToast();
 const convenioService = convenioServiceImpl();
+const loading = ref(false);
 
 const situacaoOpcoes = ref([
     { name: 'Em execução' },
@@ -82,6 +83,7 @@ const novoConvenio = async (obj) => {
         return;
     }
 
+    loading.value = true;
     try {
         let result;
         if (obj.id) {
@@ -116,9 +118,10 @@ const novoConvenio = async (obj) => {
             detail: 'Houve um erro inesperado. Tente novamente mais tarde.',
             life: 5000
         });
+    } finally {
+        loading.value = false;
     }
 };
-
 
 </script>
 
@@ -263,7 +266,9 @@ const novoConvenio = async (obj) => {
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                     @click="convenioService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="novoConvenio(convenioService.cadastro.objeto)"></Button>
+                <Button severity="info" type="button" label="Salvar"
+                        :loading="loading"
+                        @click="novoConvenio(convenioService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>

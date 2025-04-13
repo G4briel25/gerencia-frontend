@@ -9,7 +9,7 @@ const route = useRoute();
 
 // Mobile
 const homeMenu = ref({
-    label: "Home",
+    label: "Início",
     to: "/",
 });
 

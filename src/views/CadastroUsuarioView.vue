@@ -16,6 +16,7 @@ const newUser = ref({
     confirmSenha: null,
 });
 
+const loading = ref(false);
 const mensagemSucesso = ref("");
 const mensagemError = ref("");
 
@@ -28,6 +29,7 @@ const handleCadastro = async () => {
         return;
     }
 
+    loading.value = true;
     try {
         const response = await http.post('/api/usuario', {
             nome: newUser.value.nome,
@@ -47,6 +49,8 @@ const handleCadastro = async () => {
         if (error?.response?.data?.message) {
             mensagemError.value = error.response.data.message;
         }
+    } finally {
+        loading.value = false;
     }
 };
 
@@ -94,7 +98,7 @@ const handleCadastro = async () => {
                     <Password id="confirmSenha" v-model="newUser.confirmSenha" :feedback="false" toggleMask class="w-full mt-1" required />
                 </div>
                 <div>
-                    <Button label="Cadastrar" type="submit" class="w-full" />
+                    <Button label="Cadastrar" :loading="loading" type="submit" class="w-full" />
                 </div>
                 <p class="text-center text-gray-600 dark:text-gray-400 text-sm">
                     Já tem uma conta? <router-link :to="{ name: 'login' }" class="text-blue-500 hover:underline">Faça login</router-link>

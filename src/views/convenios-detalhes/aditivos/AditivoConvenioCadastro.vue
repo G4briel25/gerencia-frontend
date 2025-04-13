@@ -10,6 +10,7 @@ const toast = useToast();
 const convenioService = convenioServiceImpl();
 const aditivoConvenioService = aditivoConvenoServiceImpl();
 const route = useRoute();
+const loading = ref(false);
 
 const situacaoOpcoes = ref([
     { name: 'Em andamento' },
@@ -60,6 +61,7 @@ const novoAditivo = async (obj) => {
         return;
     }
 
+    loading.value = true;
     try {
         let result;
         if(obj.id) {
@@ -87,8 +89,11 @@ const novoAditivo = async (obj) => {
         }
     } catch (error) {
         console.log(error)
+    } finally {
+        loading.value = false;
     }
 };
+
 </script>
 
 <template>
@@ -182,7 +187,9 @@ const novoAditivo = async (obj) => {
             <div class="flex justify-end gap-2 pt-4">
                 <Button type="button" label="Cancelar" severity="secondary"
                         @click="aditivoConvenioService.cadastro.showModal = false"></Button>
-                <Button severity="info" type="button" label="Salvar" @click="novoAditivo(aditivoConvenioService.cadastro.objeto)"></Button>
+                <Button severity="info" type="button" label="Salvar"
+                        :loading="loading"
+                        @click="novoAditivo(aditivoConvenioService.cadastro.objeto)"></Button>
             </div>
         </Dialog>
     </div>

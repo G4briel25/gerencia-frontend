@@ -15,8 +15,10 @@ const user = ref({
     password: null
 });
 
+const loading = ref(false);
 const mensagemError = ref("");
 const handleLogin = async () => {
+    loading.value = true;
     try {
         const response = await http.post('/auth/login', user.value);
 
@@ -25,6 +27,8 @@ const handleLogin = async () => {
 
     } catch (error) {
         mensagemError.value = "Usuário ou senha inválidos!";
+    } finally {
+        loading.value = false;
     }
 };
 
@@ -53,7 +57,7 @@ const handleLogin = async () => {
                               required />
                 </div>
                 <div>
-                    <Button label="Login" type="submit" class="w-full" />
+                    <Button label="Login" :loading="loading" type="submit" class="w-full" />
                 </div>
             </form>
             <div class="text-center mt-4">

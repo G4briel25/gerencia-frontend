@@ -106,7 +106,7 @@ const props = defineProps(['convenioService']);
 
             <div class="px-2">
                 <div class="flex justify-between md:justify-normal mb-1">
-                    <Icon icon="bx:file" width="24" height="24" class="mr-2" />
+                    <Icon icon="bx:file" width="24" height="24" class="hidden md:block md:mr-2" />
                     <label class="mr-2 text-md font-medium text-gray-700 dark:text-gray-200 mb-1">
                         Situação:
                     </label>
