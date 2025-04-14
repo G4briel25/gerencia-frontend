@@ -9,6 +9,10 @@
 📌 **Você pode acessar o sistema Gerência através do link abaixo:**  
 ➡️ [**https://gerencia-frontend.onrender.com**](https://gerencia-frontend.onrender.com)
 
+> ⚠️ **Aviso importante:**  
+> A API utilizada por este sistema está hospedada na plataforma **Render**, na versão gratuita. Isso significa que, quando não há acesso por algum tempo, o servidor entra em modo de espera (*cold start*).  
+> **Ao abrir o sistema, pode ser necessário aguardar alguns segundos (ou minutos) até que a API seja reativada e todas as funcionalidades estejam disponíveis.**
+
 ---
 
 ## 🎯 Objetivo
@@ -74,6 +78,11 @@ Este sistema foi inspirado na solução do **Tribunal de Contas do Estado de Ror
 
 📊 Consulta pública de dados disponível em:  
 ➡️ [**https://transparencia.onrender.com**](https://transparencia.onrender.com)
+
+> ⚠️ **Aviso importante:**  
+> A API utilizada por este sistema está hospedada na plataforma **Render**, na versão gratuita. Isso significa que, quando não há acesso por algum tempo, o servidor entra em modo de espera (*cold start*).  
+> **Ao abrir o sistema, pode ser necessário aguardar alguns segundos (ou minutos) até que a API seja reativada e todas as funcionalidades estejam disponíveis.**
+
 
 ---
 
