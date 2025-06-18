@@ -95,7 +95,7 @@ Este sistema foi inspirado na solução do **Tribunal de Contas do Estado de Ror
 
 ---
 
-## Tela 404
+## 🚫 Tela 404
 ![Tela de erro 404](./public/404.png)
 
 ---
