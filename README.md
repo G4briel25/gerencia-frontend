@@ -4,17 +4,6 @@
 
 ---
 
-## 🔐 Acesse o Sistema de Gerência
-
-📌 **Você pode acessar o sistema Gerência através do link abaixo:**  
-➡️ [**https://gerencia-frontend.onrender.com**](https://gerencia-frontend.onrender.com)
-
-> ⚠️ **Aviso importante:**  
-> A API utilizada por este sistema está hospedada na plataforma **Render**, na versão gratuita. Isso significa que, quando não há acesso por algum tempo, o servidor entra em modo de espera (*cold start*).  
-> **Ao abrir o sistema, pode ser necessário aguardar alguns segundos (ou minutos) até que a API seja reativada e todas as funcionalidades estejam disponíveis.**
-
----
-
 ## 🎯 Objetivo
 
 Este sistema foi criado para uso **exclusivo de administradores** com o intuito de alimentar e manter atualizadas as informações exibidas na versão pública (**Frontend Transparência**).
@@ -30,7 +19,7 @@ O **Frontend Gerência** permite o gerenciamento completo dos seguintes dados:
 - Repasses (lançamentos)
 - Proponentes
 
-Esses dados são consumidos pela API e apresentados ao público no sistema [**Transparência**](https://transparencia.onrender.com).
+Esses dados são consumidos pela API e apresentados ao público no sistema Transparência.
 
 ---
 
@@ -74,15 +63,40 @@ Este sistema foi inspirado na solução do **Tribunal de Contas do Estado de Ror
 
 ---
 
-## 🌐 Acesse o sistema Transparência
+# 📸 Screenshots do projeto
 
-📊 Consulta pública de dados disponível em:  
-➡️ [**https://transparencia.onrender.com**](https://transparencia.onrender.com)
+## 🔐 Tela de login do sistema
+![Tela de login](./public/login.png)
 
-> ⚠️ **Aviso importante:**  
-> A API utilizada por este sistema está hospedada na plataforma **Render**, na versão gratuita. Isso significa que, quando não há acesso por algum tempo, o servidor entra em modo de espera (*cold start*).  
-> **Ao abrir o sistema, pode ser necessário aguardar alguns segundos (ou minutos) até que a API seja reativada e todas as funcionalidades estejam disponíveis.**
+---
 
+## 🏠 Tela inicial do sistema
+![Tela inicial](./public/menu-iniciar.png)
+
+---
+
+## 📋 Tela de gestão de convênios
+![Tela de convênios](./public/tela-convenio.png)
+
+---
+
+## 📝 Tela de cadastro de um convênio
+![Tela de convênios](./public/cadastrar-convenio.png)
+
+---
+
+## 🔍 Tela de detalhes do convênio
+![Tela de cadastro convênio](./public/detalhes-convenio.png)
+
+---
+
+## 📑 Tela de detalhes de um aditivo do convênio
+![Tela de cadastro convênio](./public/detalhes-aditivo.png)
+
+---
+
+## Tela 404
+![Tela de erro 404](./public/404.png)
 
 ---
 

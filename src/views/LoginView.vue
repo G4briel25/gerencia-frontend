@@ -32,6 +32,10 @@ const handleLogin = async () => {
     }
 };
 
+// Login:
+// fulano
+// 123
+
 </script>
 
 <template>

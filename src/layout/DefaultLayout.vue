@@ -14,10 +14,6 @@ import FooterRodape from "@/components/FooterRodape.vue";
                 <router-view @start-loading="$emit('start-loading')" @end-loading="$emit('end-loading')"></router-view>
             </main>
         </div>
-
-        <footer>
-            <FooterRodape></FooterRodape>
-        </footer>
     </div>
 </template>
 
